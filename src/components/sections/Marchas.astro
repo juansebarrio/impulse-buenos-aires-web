@@ -1,0 +1,94 @@
+---
+const marchasImage = '/images/logos/PRIDE-IMPULSE_LOGO_x__ligiamajul-14.jpg';
+---
+
+<section class="marchas" style={`background-image: url('${marchasImage}');`}>
+  <div class="marchas-overlay"></div>
+  <div class="container marchas-content">
+    <p class="eyebrow">Cada noviembre</p>
+    <h2 class="title">En la Marcha del Orgullo.</h2>
+    <p class="description">
+      Presentes, visibles y con información para la comunidad.
+    </p>
+    <a href="/marchas" class="cta">Ver galería →</a>
+  </div>
+</section>
+
+<style>
+  .marchas {
+    position: relative;
+    padding: 4rem 0;
+    min-height: 480px;
+    display: flex;
+    align-items: center;
+    background-color: var(--color-bg);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    overflow: hidden;
+  }
+  @media (min-width: 768px) {
+    .marchas {
+      padding: 6rem 0;
+      min-height: 640px;
+    }
+  }
+
+  .marchas-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0.5),
+      rgba(0, 0, 0, 0.75)
+    );
+  }
+
+  .marchas-content {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    max-width: 720px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .eyebrow {
+    font-family: var(--font-body);
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--color-white);
+    opacity: 0.85;
+    margin-bottom: 1rem;
+  }
+
+  .title {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: clamp(48px, 7vw, 88px);
+    line-height: 1.05;
+    color: var(--color-white);
+    letter-spacing: -0.02em;
+    margin-bottom: 1.5rem;
+  }
+
+  .description {
+    font-family: var(--font-body);
+    font-size: clamp(18px, 2vw, 20px);
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.85);
+    max-width: 520px;
+    margin-bottom: 1.75rem;
+  }
+
+  .cta {
+    color: var(--color-white);
+    font-weight: 600;
+  }
+  .cta:hover {
+    text-decoration: underline;
+  }
+</style>

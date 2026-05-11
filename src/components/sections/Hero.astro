@@ -1,0 +1,219 @@
+---
+const heroImage = '/images/eventos/IMGL0433.jpeg';
+const sumarteURL = 'https://azcv9sy8ps4.typeform.com/to/J2fwlRp8';
+---
+
+<section class="hero relative min-h-screen flex items-center justify-center px-4 text-center overflow-hidden">
+  <div class="hero-bg" style={`background-image: url('${heroImage}');`}></div>
+  <div class="hero-overlay"></div>
+
+  <div class="hero-content relative z-10 flex flex-col items-center w-full max-w-4xl">
+    <img
+      src="/images/logos/logo-azul.png"
+      alt="Impulse Buenos Aires"
+      class="hero-logo animate delay-0"
+    />
+    <p class="eyebrow animate delay-1">Buenos Aires · Desde 2017</p>
+    <h1 class="title animate delay-2">
+      Sin miedo.<br />Sin estigmas.
+    </h1>
+    <p class="subtitle animate delay-3">
+      Hablamos de lo que otros callan. Comunidad, salud sexual y orgullo en Buenos Aires.
+    </p>
+    <div class="buttons animate delay-4">
+      <a href="#proyectos" class="btn btn-primary">Conocé nuestros proyectos</a>
+      <a
+        href={sumarteURL}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="btn btn-secondary"
+      >
+        Sumarte como voluntarie
+      </a>
+    </div>
+  </div>
+
+  <a href="#proyectos" class="scroll-indicator" aria-label="Bajar a proyectos">
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      width="28"
+      height="28"
+      aria-hidden="true"
+    >
+      <polyline points="6 9 12 15 18 9" />
+    </svg>
+  </a>
+</section>
+
+<style>
+  .hero {
+    margin-top: -5rem;
+  }
+
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+
+  .hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0.2),
+      rgba(0, 0, 0, 0.7)
+    );
+  }
+
+  .hero-logo {
+    width: 100%;
+    max-width: 120px;
+    height: auto;
+    margin-bottom: 2.5rem;
+  }
+
+  .eyebrow {
+    font-family: var(--font-body);
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.25em;
+    color: rgba(255, 255, 255, 0.9);
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);
+    margin-bottom: 1.5rem;
+  }
+
+  .title {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: clamp(64px, 10vw, 120px);
+    line-height: 0.95;
+    color: var(--color-white);
+    margin-bottom: 1.5rem;
+    letter-spacing: -0.02em;
+  }
+
+  .subtitle {
+    font-family: var(--font-body);
+    font-size: clamp(18px, 2vw, 20px);
+    color: rgba(255, 255, 255, 0.85);
+    max-width: 480px;
+    margin: 0 auto 2.5rem;
+    line-height: 1.5;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+  }
+
+  .buttons {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .btn {
+    display: inline-block;
+    padding: 14px 28px;
+    border-radius: 4px;
+    font-family: var(--font-body);
+    font-weight: 600;
+    font-size: 1rem;
+    border: 1px solid transparent;
+    transition: background-color var(--transition), border-color var(--transition);
+    cursor: pointer;
+  }
+
+  .btn-primary {
+    background-color: var(--color-accent);
+    color: var(--color-white);
+    border-color: var(--color-accent);
+  }
+  .btn-primary:hover {
+    background-color: var(--color-accent-hover);
+    border-color: var(--color-accent-hover);
+  }
+
+  .btn-secondary {
+    background-color: transparent;
+    color: var(--color-white);
+    border-color: var(--color-white);
+  }
+  .btn-secondary:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+
+  @keyframes fadeUp {
+    from {
+      opacity: 0;
+      transform: translateY(24px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .animate {
+    opacity: 0;
+    animation: fadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+  .delay-0 { animation-delay: 0ms; }
+  .delay-1 { animation-delay: 150ms; }
+  .delay-2 { animation-delay: 300ms; }
+  .delay-3 { animation-delay: 450ms; }
+  .delay-4 { animation-delay: 600ms; }
+
+  .scroll-indicator {
+    position: absolute;
+    bottom: 28px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: var(--color-white);
+    z-index: 10;
+    opacity: 0;
+    animation: fadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    animation-delay: 900ms;
+    transition: opacity 0.3s ease;
+  }
+  .scroll-indicator svg {
+    animation: bounce 2s ease-in-out infinite;
+  }
+  .scroll-indicator.is-faded {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  @keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50%      { transform: translateY(8px); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .animate,
+    .scroll-indicator {
+      animation: none;
+      opacity: 1;
+    }
+    .scroll-indicator svg {
+      animation: none;
+    }
+  }
+</style>
+
+<script>
+  const indicator = document.querySelector('.scroll-indicator');
+  if (indicator) {
+    const onScroll = () => {
+      if (window.scrollY > 50) indicator.classList.add('is-faded');
+      else indicator.classList.remove('is-faded');
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+  }
+</script>

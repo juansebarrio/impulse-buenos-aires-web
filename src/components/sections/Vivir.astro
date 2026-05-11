@@ -1,0 +1,199 @@
+---
+const vivirImage = '/images/vivir/VIHVIR__6_.jpg';
+const legislaturaLogo = '/images/logos/logo-lcaba.png';
+---
+
+<section class="vivir">
+  <div class="vivir-main">
+    <div class="container">
+      <div class="vivir-grid">
+        <div class="vivir-text">
+          <span class="tag">Proyecto fotográfico</span>
+          <h2 class="title">Vivir.</h2>
+          <p class="description">
+            Retratos de historias queer en Buenos Aires. Una muestra que
+            estuvo en la Legislatura porteña durante el Día Internacional
+            del Orgullo. Arte como herramienta de visibilidad y
+            desmitificación.
+          </p>
+          <a href="/vivir" class="cta">Ver proyecto →</a>
+        </div>
+        <div class="vivir-image">
+          <img
+            src={vivirImage}
+            alt="Retrato del proyecto Vivir en la Legislatura porteña"
+            loading="lazy"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="legislatura-strip">
+    <div class="container legislatura-content">
+      <span class="legislatura-label">Expuesto en</span>
+      <img
+        src={legislaturaLogo}
+        alt="Legislatura de la Ciudad Autónoma de Buenos Aires"
+        class="legislatura-logo"
+      />
+    </div>
+  </div>
+</section>
+
+<style>
+  .vivir {
+    position: relative;
+    background-color: #0a0a18;
+    overflow: hidden;
+  }
+
+  .vivir-main {
+    position: relative;
+    padding: 4rem 0;
+    isolation: isolate;
+  }
+  @media (min-width: 768px) {
+    .vivir-main {
+      padding: 6rem 0;
+    }
+  }
+
+  .vivir-main::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: linear-gradient(
+      135deg,
+      rgba(80, 30, 140, 0.42) 0%,
+      rgba(20, 50, 140, 0.32) 35%,
+      rgba(140, 30, 110, 0.38) 70%,
+      rgba(60, 30, 130, 0.42) 100%
+    );
+    background-size: 280% 280%;
+    animation: vivir-bg 32s ease-in-out infinite;
+    pointer-events: none;
+  }
+
+  @keyframes vivir-bg {
+    0%, 100% { background-position: 0% 0%; }
+    50%      { background-position: 100% 100%; }
+  }
+
+  .vivir-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+  @media (min-width: 768px) {
+    .vivir-grid {
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+    }
+  }
+
+  .vivir-text {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .tag {
+    display: inline-block;
+    background-color: var(--color-accent);
+    color: var(--color-white);
+    padding: 4px 10px;
+    border-radius: 2px;
+    font-family: var(--font-body);
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 1.5rem;
+  }
+
+  .title {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: clamp(56px, 7vw, 88px);
+    line-height: 1.05;
+    color: var(--color-white);
+    letter-spacing: -0.02em;
+    margin-bottom: 1.5rem;
+  }
+
+  .description {
+    font-family: var(--font-body);
+    font-size: 1.05rem;
+    line-height: 1.7;
+    color: rgba(255, 255, 255, 0.88);
+    margin-bottom: 1.75rem;
+  }
+
+  .cta {
+    color: var(--color-white);
+    font-weight: 600;
+    transition: color var(--transition);
+  }
+  .cta:hover {
+    color: rgba(255, 255, 255, 0.75);
+    text-decoration: underline;
+  }
+
+  .vivir-image img {
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+    border-radius: var(--radius);
+    display: block;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.45);
+  }
+
+  /* ---------- Tira inferior con logo Legislatura ---------- */
+  .legislatura-strip {
+    background-color: #ffffff;
+    padding: 1.25rem 0;
+    border-top: 1px solid rgba(0, 0, 0, 0.06);
+  }
+  @media (min-width: 768px) {
+    .legislatura-strip {
+      padding: 1.5rem 0;
+    }
+  }
+
+  .legislatura-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1.25rem;
+    flex-wrap: wrap;
+  }
+
+  .legislatura-label {
+    font-family: var(--font-body);
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.22em;
+    color: #555555;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+
+  .legislatura-logo {
+    height: 40px;
+    width: auto;
+  }
+  @media (min-width: 768px) {
+    .legislatura-logo {
+      height: 48px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .vivir-main::before {
+      animation: none;
+    }
+  }
+</style>

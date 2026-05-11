@@ -1,0 +1,235 @@
+---
+const projects = [
+  {
+    image: '/images/eventos/182DSC_7333_TorneoTodes_2025_zarcko_.jpeg',
+    tag: 'Deportes',
+    title: 'Impulse Deporte',
+    description:
+      'Equipos, torneos y prácticas que arman comunidad en cancha. El deporte como espacio donde la diversidad se entrena y se celebra.',
+    meta: 'Buenos Aires · Todo el año',
+  },
+  {
+    image: '/images/logos/PRIDE-IMPULSE_LOGO_x__ligiamajul-75.jpg',
+    tag: 'Arte y cultura',
+    title: 'Arte como activismo',
+    description:
+      'Conversatorios, muestras y producciones culturales que llevan las conversaciones que importan a nuevos espacios.',
+    meta: 'En curso',
+  },
+  {
+    image: '/images/eventos/MEF06227.jpg',
+    tag: 'Summit LATAM',
+    title: 'Summit LATAM 2024',
+    description:
+      'Nos reunimos en Buenos Aires con los capítulos de LATAM. Tres días de trabajo, intercambio y cultura con más de 50 personas de 6 países. Conversamos, planificamos y celebramos lo que significa construir comunidad a escala regional.',
+    meta: 'Buenos Aires · 2024',
+  },
+];
+
+const gallery = [
+  '/images/eventos/MEF05633.jpg',
+  '/images/eventos/MEF05647.jpg',
+  '/images/eventos/MEF05776.jpg',
+  '/images/eventos/MEF05824.jpg',
+  '/images/eventos/MEF05920.jpg',
+  '/images/eventos/MEF05967.jpg',
+  '/images/eventos/MEF05977.jpg',
+  '/images/eventos/MEF05498.jpg',
+];
+---
+
+<section id="proyectos" class="section">
+  <div class="container">
+    <header class="section-header">
+      <p class="eyebrow">Lo que hacemos</p>
+      <h2 class="title">Nuestros proyectos</h2>
+    </header>
+  </div>
+
+  {
+    projects.map((p) => (
+      <article class="card" style={`background-image: url('${p.image}');`}>
+        <div class="card-overlay" />
+        <div class="container card-container">
+          <div class="card-content">
+            <span class="tag">{p.tag}</span>
+            <h3 class="card-title">{p.title}</h3>
+            <p class="card-description">{p.description}</p>
+            <p class="card-meta">{p.meta}</p>
+          </div>
+        </div>
+      </article>
+    ))
+  }
+
+  <div class="container">
+    <div class="gallery">
+      {
+        gallery.map((src, i) => (
+          <div class="gallery-item">
+            <img
+              src={src}
+              alt={`Summit LATAM 2024 — foto ${i + 1}`}
+              loading="lazy"
+            />
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .section {
+    background-color: var(--color-bg);
+    padding: 4rem 0;
+    scroll-margin-top: 5rem;
+  }
+  @media (min-width: 768px) {
+    .section {
+      padding: 6rem 0;
+    }
+  }
+
+  .section-header {
+    margin-bottom: 3rem;
+  }
+
+  .eyebrow {
+    font-family: var(--font-body);
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--color-accent);
+    margin-bottom: 1rem;
+  }
+
+  .title {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: clamp(40px, 5vw, 56px);
+    line-height: 1.05;
+    color: var(--color-white);
+    letter-spacing: -0.02em;
+  }
+
+  /* ---------- Banners de proyectos ---------- */
+  .card {
+    position: relative;
+    min-height: 380px;
+    padding: 3rem 0;
+    display: flex;
+    align-items: flex-end;
+    background-color: var(--color-bg);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    overflow: hidden;
+  }
+  @media (min-width: 768px) {
+    .card {
+      min-height: 520px;
+      padding: 4.5rem 0;
+    }
+  }
+
+  .card + .card {
+    margin-top: 0;
+  }
+
+  .card-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0.2) 0%,
+      rgba(0, 0, 0, 0.55) 55%,
+      rgba(0, 0, 0, 0.85) 100%
+    );
+  }
+
+  .card-container {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+  }
+
+  .card-content {
+    max-width: 720px;
+  }
+
+  .tag {
+    display: inline-block;
+    background-color: var(--color-accent);
+    color: var(--color-white);
+    padding: 4px 10px;
+    border-radius: 2px;
+    font-family: var(--font-body);
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 1rem;
+  }
+
+  .card-title {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: clamp(32px, 4.5vw, 52px);
+    line-height: 1.05;
+    color: var(--color-white);
+    letter-spacing: -0.02em;
+    margin-bottom: 1rem;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+  }
+
+  .card-description {
+    font-family: var(--font-body);
+    font-size: clamp(16px, 1.5vw, 18px);
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.92);
+    margin-bottom: 1rem;
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.45);
+  }
+
+  .card-meta {
+    font-family: var(--font-body);
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.7);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+
+  /* ---------- Galería del Summit ---------- */
+  .gallery {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    margin-top: 4rem;
+  }
+  @media (min-width: 1024px) {
+    .gallery {
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.25rem;
+      margin-top: 5rem;
+    }
+  }
+
+  .gallery-item {
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+    border-radius: var(--radius);
+    background-color: var(--color-surface);
+  }
+
+  .gallery-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+  }
+  .gallery-item:hover img {
+    transform: scale(1.03);
+  }
+</style>

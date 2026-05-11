@@ -165,7 +165,8 @@ const sumarteURL = 'https://azcv9sy8ps4.typeform.com/to/J2fwlRp8';
   #site-header {
     background-color: transparent;
   }
-  #site-header.is-scrolled {
+  #site-header.is-scrolled,
+  #site-header.is-menu-open {
     background-color: color-mix(in srgb, var(--color-bg) 95%, transparent);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
@@ -269,6 +270,7 @@ const sumarteURL = 'https://azcv9sy8ps4.typeform.com/to/J2fwlRp8';
   const closeMenu = () => {
     menuToggle.classList.remove('is-open');
     mobileMenu.classList.remove('is-open');
+    header.classList.remove('is-menu-open');
     projectsAccordion.classList.remove('is-open');
     projectsSubmenu.classList.remove('is-open');
     menuToggle.setAttribute('aria-expanded', 'false');
@@ -279,6 +281,7 @@ const sumarteURL = 'https://azcv9sy8ps4.typeform.com/to/J2fwlRp8';
   menuToggle.addEventListener('click', () => {
     const isOpen = menuToggle.classList.toggle('is-open');
     mobileMenu.classList.toggle('is-open');
+    header.classList.toggle('is-menu-open', isOpen);
     menuToggle.setAttribute('aria-expanded', String(isOpen));
     document.body.style.overflow = isOpen ? 'hidden' : '';
     if (!isOpen) {

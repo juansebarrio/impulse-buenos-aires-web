@@ -1,9 +1,25 @@
 ---
 import BaseLayout from '../components/layout/BaseLayout.astro';
+import Hero from '../components/sections/Hero.astro';
+import ImpulseGroup from '../components/sections/ImpulseGroup.astro';
+import QueHacemos from '../components/sections/QueHacemos.astro';
+import Marchas from '../components/sections/Marchas.astro';
+import Vivir from '../components/sections/Vivir.astro';
+import Proyectos from '../components/sections/Proyectos.astro';
+import Activaciones from '../components/sections/Activaciones.astro';
+import CtaBlock from '../components/sections/CtaBlock.astro';
+
+const description =
+  'Impulse Buenos Aires — Comunidad LGBTIQ+, salud sexual y prevención del VIH en Buenos Aires. Eventos, activaciones y proyectos.';
 ---
 
-<BaseLayout title="Inicio">
-  <div class="container h-screen flex items-center justify-center text-center">
-    Impulse Buenos Aires — en construcción
-  </div>
+<BaseLayout title="Inicio" description={description}>
+  <Hero />
+  <ImpulseGroup />
+  <QueHacemos />
+  <Marchas />
+  <Vivir />
+  <Proyectos />
+  <Activaciones />
+  <CtaBlock />
 </BaseLayout>

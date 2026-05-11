@@ -1,0 +1,142 @@
+---
+const impulseGroupURL = 'https://impulsegrp.org/';
+---
+
+<section class="section">
+  <div class="container">
+    <div class="grid md:grid-cols-5 gap-12 md:gap-16 items-start">
+      <div class="md:col-span-3">
+        <p class="eyebrow">Quiénes somos</p>
+        <h2 class="title">Somos parte de algo más grande.</h2>
+        <div class="text">
+          <p>
+            Impulse nace en 2009 en Los Ángeles cuando un grupo de amigos
+            decide que la mejor forma de frenar el VIH no era dar sermones,
+            sino tener conversaciones. Hoy somos 26 capítulos en 13 países.
+          </p>
+          <p>
+            Llegamos a Buenos Aires en 2017 con una convicción: la comunidad
+            LGBTQ+ merece un espacio donde conocer, preguntar y compartir sin
+            miedo y sin estigmas.
+          </p>
+        </div>
+        <a
+          href={impulseGroupURL}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="link"
+        >
+          Conocé Impulse Group →
+        </a>
+      </div>
+
+      <div class="md:col-span-2 logo-column">
+        <div class="logo-block">
+          <img
+            src="/images/logos/AHF-logo-Global.png"
+            alt="AIDS Healthcare Foundation"
+            class="logo"
+          />
+          <p class="caption">Con el apoyo de AIDS Healthcare Foundation</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .section {
+    background-color: #f5f5f5;
+    padding: 4rem 0;
+  }
+  @media (min-width: 768px) {
+    .section {
+      padding: 6rem 0;
+    }
+  }
+
+  .eyebrow {
+    font-family: var(--font-body);
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--color-accent);
+    margin-bottom: 1.25rem;
+  }
+
+  .title {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: clamp(48px, 5vw, 56px);
+    line-height: 1.05;
+    color: #0a0a0a;
+    letter-spacing: -0.02em;
+    margin-bottom: 2rem;
+  }
+
+  .text {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    margin-bottom: 2rem;
+  }
+  .text p {
+    font-family: var(--font-body);
+    color: #555555;
+    line-height: 1.7;
+    font-size: 1.05rem;
+  }
+
+  .link {
+    color: var(--color-accent);
+    font-weight: 600;
+    transition: color var(--transition);
+  }
+  .link:hover {
+    color: var(--color-accent-hover);
+    text-decoration: underline;
+  }
+
+  .logo-column {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    align-items: center;
+  }
+
+  .logo-block {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    align-items: center;
+    text-align: center;
+  }
+
+  .logo-block + .logo-block {
+    padding-top: 2rem;
+    border-top: 1px solid #d8d8d8;
+    width: 100%;
+  }
+
+  .logo {
+    max-width: 180px;
+    width: 100%;
+    height: auto;
+  }
+
+  .caption {
+    font-family: var(--font-body);
+    font-size: 0.85rem;
+    color: #666666;
+    max-width: 220px;
+  }
+
+  @media (min-width: 768px) {
+    .logo-column,
+    .logo-block {
+      align-items: flex-start;
+      text-align: left;
+    }
+  }
+</style>
