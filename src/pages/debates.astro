@@ -1,0 +1,391 @@
+---
+import BaseLayout from '../components/layout/BaseLayout.astro';
+
+const youtubeURL = 'https://www.youtube.com/@impulsebsas9778';
+const participateMailto =
+  'mailto:juanse.barrio@aidshealth.org?subject=' +
+  encodeURIComponent('Quiero participar en Debates que Impulsan');
+
+const topics = [
+  {
+    num: '01',
+    title: 'Diversidad y derechos',
+    text:
+      'Políticas públicas, representación y los desafíos actuales de la comunidad LGBTQ+ en Argentina.',
+  },
+  {
+    num: '02',
+    title: 'Salud sexual',
+    text:
+      'Prevención, tratamiento del VIH, salud mental y acceso a la información sin estigmas ni tabúes.',
+  },
+  {
+    num: '03',
+    title: 'Cultura e identidad',
+    text:
+      'Arte, expresión, comunidad y lo que significa construir espacios seguros en Buenos Aires.',
+  },
+];
+
+const description =
+  'Ciclo de entrevistas y conversatorios de Impulse Buenos Aires sobre diversidad, salud sexual y vida LGBTQ+. Disponible en YouTube.';
+---
+
+<BaseLayout title="Debates que Impulsan" description={description}>
+  <!-- Hero -->
+  <section class="hero">
+    <div class="container hero-content">
+      <p class="hero-eyebrow">Ciclo de entrevistas y conversatorios</p>
+      <h1 class="hero-title">Debates que Impulsan.</h1>
+      <p class="hero-subtitle">
+        Un espacio para cuestionar, aprender y construir información con
+        voces diversas sobre la vida LGBTQ+ de hoy.
+      </p>
+    </div>
+  </section>
+
+  <!-- Descripción -->
+  <section class="intro">
+    <div class="container">
+      <div class="intro-grid">
+        <div class="intro-text">
+          <p class="eyebrow">De qué se trata</p>
+          <h2 class="intro-title">Conversaciones que importan.</h2>
+          <p class="intro-paragraph">
+            Debates que Impulsan es nuestro ciclo de entrevistas y paneles
+            abiertos. Invitamos a referentes, candidatos y figuras de la
+            comunidad a compartir sus perspectivas sobre diversidad, salud
+            sexual, bienestar y derechos.
+          </p>
+          <p class="intro-paragraph">
+            No buscamos respuestas perfectas. Buscamos conversaciones
+            reales, cercanas y útiles para el día a día de las personas
+            LGBTQ+.
+          </p>
+        </div>
+
+        <aside class="yt-card">
+          <p class="yt-label">Encontrá todos los episodios en</p>
+          <svg
+            class="yt-icon"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+            aria-hidden="true"
+          >
+            <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
+          </svg>
+          <p class="yt-handle">@impulsebsas</p>
+          <a
+            href={youtubeURL}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="yt-button"
+          >
+            Ver canal de YouTube →
+          </a>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <!-- Temáticas -->
+  <section class="topics">
+    <div class="container">
+      <p class="eyebrow topics-eyebrow">Sobre qué hablamos</p>
+      <div class="topics-grid">
+        {
+          topics.map((t) => (
+            <article class="topic-card">
+              <span class="topic-num">{t.num}</span>
+              <h3 class="topic-title">{t.title}</h3>
+              <p class="topic-text">{t.text}</p>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta">
+    <div class="container cta-content">
+      <p class="eyebrow cta-eyebrow">Participá</p>
+      <h2 class="cta-title">¿Querés ser parte de un debate?</h2>
+      <p class="cta-text">
+        Si representás una organización, tenés algo para decir o querés
+        proponer un tema, escribinos.
+      </p>
+      <a href={participateMailto} class="cta-button">Escribinos</a>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  /* ---------- Hero ---------- */
+  .hero {
+    min-height: 60vh;
+    margin-top: -5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 5rem 1rem 0;
+    background: linear-gradient(to bottom, var(--color-surface), var(--color-bg));
+  }
+
+  .hero-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 800px;
+  }
+
+  .hero-eyebrow {
+    font-family: var(--font-body);
+    text-transform: uppercase;
+    letter-spacing: 0.25em;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--color-accent);
+    margin-bottom: 1.5rem;
+  }
+
+  .hero-title {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: clamp(56px, 9vw, 96px);
+    line-height: 1;
+    letter-spacing: -0.02em;
+    color: var(--color-white);
+    margin-bottom: 1.5rem;
+  }
+
+  .hero-subtitle {
+    font-family: var(--font-body);
+    font-size: clamp(18px, 2vw, 20px);
+    line-height: 1.5;
+    color: var(--color-muted);
+    max-width: 560px;
+  }
+
+  /* ---------- Eyebrow compartido ---------- */
+  .eyebrow {
+    font-family: var(--font-body);
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--color-accent);
+    margin-bottom: 1rem;
+  }
+
+  /* ---------- Intro ---------- */
+  .intro {
+    background-color: var(--color-bg);
+    padding: 4rem 0;
+  }
+  @media (min-width: 768px) {
+    .intro { padding: 6rem 0; }
+  }
+
+  .intro-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+  @media (min-width: 768px) {
+    .intro-grid {
+      grid-template-columns: 55% 45%;
+      gap: 3rem;
+      align-items: start;
+    }
+  }
+
+  .intro-title {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: clamp(36px, 5vw, 48px);
+    line-height: 1.05;
+    color: var(--color-white);
+    letter-spacing: -0.02em;
+    margin-bottom: 1.5rem;
+  }
+
+  .intro-paragraph {
+    font-family: var(--font-body);
+    font-size: 1.05rem;
+    line-height: 1.7;
+    color: var(--color-muted);
+  }
+  .intro-paragraph + .intro-paragraph {
+    margin-top: 1.25rem;
+  }
+
+  /* ---------- YouTube card ---------- */
+  .yt-card {
+    background-color: var(--color-surface);
+    padding: 2.5rem;
+    border-radius: 4px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75rem;
+  }
+
+  .yt-label {
+    font-family: var(--font-body);
+    font-size: 0.85rem;
+    color: var(--color-muted);
+  }
+
+  .yt-icon {
+    width: 48px;
+    height: 48px;
+    color: #ff0000;
+  }
+
+  .yt-handle {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 28px;
+    color: var(--color-white);
+    letter-spacing: -0.01em;
+  }
+
+  .yt-button {
+    display: inline-block;
+    margin-top: 0.75rem;
+    background-color: var(--color-accent);
+    color: var(--color-white);
+    padding: 12px 24px;
+    border-radius: 4px;
+    font-family: var(--font-body);
+    font-weight: 600;
+    font-size: 0.95rem;
+    border: 1px solid var(--color-accent);
+    transition: background-color var(--transition), border-color var(--transition);
+  }
+  .yt-button:hover {
+    background-color: var(--color-accent-hover);
+    border-color: var(--color-accent-hover);
+  }
+
+  /* ---------- Temáticas ---------- */
+  .topics {
+    background-color: var(--color-surface);
+    padding: 4rem 0;
+  }
+  @media (min-width: 768px) {
+    .topics { padding: 6rem 0; }
+  }
+
+  .topics-eyebrow {
+    text-align: center;
+    margin-bottom: 2.5rem;
+  }
+
+  .topics-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+  @media (min-width: 768px) {
+    .topics-grid {
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+  }
+
+  .topic-card {
+    background-color: var(--color-surface-2);
+    padding: 2rem;
+    border-radius: 4px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .topic-num {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 48px;
+    color: var(--color-accent);
+    line-height: 1;
+    margin-bottom: 1rem;
+  }
+
+  .topic-title {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 24px;
+    color: var(--color-white);
+    line-height: 1.15;
+    margin-bottom: 0.75rem;
+    letter-spacing: -0.01em;
+  }
+
+  .topic-text {
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: var(--color-muted);
+  }
+
+  /* ---------- CTA ---------- */
+  .cta {
+    background-color: #000;
+    padding: 4.5rem 0;
+  }
+  @media (min-width: 768px) {
+    .cta { padding: 6.25rem 0; }
+  }
+
+  .cta-content {
+    text-align: center;
+    max-width: 720px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .cta-eyebrow {
+    margin-bottom: 1.25rem;
+  }
+
+  .cta-title {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: clamp(36px, 5vw, 56px);
+    line-height: 1.05;
+    color: var(--color-white);
+    letter-spacing: -0.02em;
+    margin-bottom: 1.5rem;
+  }
+
+  .cta-text {
+    font-family: var(--font-body);
+    font-size: clamp(17px, 1.8vw, 19px);
+    color: var(--color-muted);
+    line-height: 1.6;
+    margin-bottom: 2.5rem;
+    max-width: 560px;
+  }
+
+  .cta-button {
+    display: inline-block;
+    background-color: var(--color-accent);
+    color: var(--color-white);
+    padding: 14px 28px;
+    border-radius: 4px;
+    font-family: var(--font-body);
+    font-weight: 600;
+    font-size: 1rem;
+    border: 1px solid var(--color-accent);
+    transition: background-color var(--transition), border-color var(--transition);
+  }
+  .cta-button:hover {
+    background-color: var(--color-accent-hover);
+    border-color: var(--color-accent-hover);
+  }
+</style>

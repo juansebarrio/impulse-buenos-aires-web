@@ -1,0 +1,172 @@
+---
+
+---
+
+<section class="chatbot">
+  <div class="container chatbot-content">
+    <div class="chatbot-icon" aria-hidden="true">
+      <span class="pulse"></span>
+      <span class="pulse pulse-delay"></span>
+      <svg
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        width="36"
+        height="36"
+      >
+        <path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3z" />
+        <path d="M19 10v2a7 7 0 0 1-14 0v-2" />
+        <line x1="12" y1="19" x2="12" y2="22" />
+      </svg>
+    </div>
+
+    <p class="eyebrow">Chatbot de voz</p>
+    <h2 class="title">Preguntale a Impulse.</h2>
+    <p class="description">
+      Un asistente conversacional con voz para responder dudas sobre salud
+      sexual, prevención del VIH y cómo trabaja Impulse Buenos Aires.
+      Habla en voz alta, te responde en voz alta. Sin turnos, sin esperas,
+      sin filtros.
+    </p>
+    <a href="/chatbot" class="cta-button">
+      <svg
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        width="18"
+        height="18"
+        aria-hidden="true"
+      >
+        <path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3z" />
+        <path d="M19 10v2a7 7 0 0 1-14 0v-2" />
+        <line x1="12" y1="19" x2="12" y2="22" />
+      </svg>
+      Abrir chat de voz
+    </a>
+  </div>
+</section>
+
+<style>
+  .chatbot {
+    background-color: var(--color-bg);
+    padding: 4rem 0;
+    position: relative;
+    overflow: hidden;
+  }
+  @media (min-width: 768px) {
+    .chatbot {
+      padding: 6rem 0;
+    }
+  }
+
+  .chatbot-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    max-width: 640px;
+  }
+
+  /* ---------- Ícono con pulso ---------- */
+  .chatbot-icon {
+    position: relative;
+    width: 96px;
+    height: 96px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--color-accent);
+    color: var(--color-white);
+    border-radius: 50%;
+    margin-bottom: 2.5rem;
+    flex-shrink: 0;
+  }
+
+  .pulse {
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    background-color: var(--color-accent);
+    opacity: 0.45;
+    animation: pulse 2.6s ease-out infinite;
+    pointer-events: none;
+  }
+  .pulse-delay {
+    animation-delay: 1.3s;
+  }
+
+  @keyframes pulse {
+    0% {
+      transform: scale(1);
+      opacity: 0.45;
+    }
+    100% {
+      transform: scale(1.8);
+      opacity: 0;
+    }
+  }
+
+  .chatbot-icon svg {
+    position: relative;
+    z-index: 1;
+  }
+
+  /* ---------- Texto ---------- */
+  .eyebrow {
+    font-family: var(--font-body);
+    text-transform: uppercase;
+    letter-spacing: 0.25em;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--color-accent);
+    margin-bottom: 1rem;
+  }
+
+  .title {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: clamp(40px, 5.5vw, 64px);
+    line-height: 1.05;
+    color: var(--color-white);
+    letter-spacing: -0.02em;
+    margin-bottom: 1.25rem;
+  }
+
+  .description {
+    font-family: var(--font-body);
+    font-size: clamp(17px, 1.7vw, 19px);
+    line-height: 1.6;
+    color: var(--color-muted);
+    margin-bottom: 2.25rem;
+  }
+
+  /* ---------- CTA ---------- */
+  .cta-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    background-color: var(--color-accent);
+    color: var(--color-white);
+    padding: 14px 26px;
+    border-radius: 4px;
+    font-family: var(--font-body);
+    font-weight: 600;
+    font-size: 1rem;
+    border: 1px solid var(--color-accent);
+    transition: background-color var(--transition), border-color var(--transition);
+  }
+  .cta-button:hover {
+    background-color: var(--color-accent-hover);
+    border-color: var(--color-accent-hover);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .pulse { animation: none; opacity: 0; }
+  }
+</style>
