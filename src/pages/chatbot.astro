@@ -1,0 +1,405 @@
+---
+import BaseLayout from '../components/layout/BaseLayout.astro';
+
+const description =
+  'Asistente conversacional de voz de Impulse Buenos Aires. Resolvé dudas sobre salud sexual, prevención del VIH y cómo trabaja la ONG.';
+
+const steps = [
+  {
+    num: '01',
+    title: 'Tocá el botón',
+    text: 'Vas a ver un botón flotante abajo a la derecha. Tocalo para abrir la conversación.',
+  },
+  {
+    num: '02',
+    title: 'Permití el micrófono',
+    text: 'El navegador te va a pedir acceso. Sin micro no podés hablar — pero también podés escribir si preferís.',
+  },
+  {
+    num: '03',
+    title: 'Preguntá natural',
+    text: 'Hablale como hablás con cualquier persona. Está entrenado para responder sobre salud sexual y el trabajo de Impulse.',
+  },
+];
+
+const topics = [
+  'Cómo prevenir el VIH y otras ITS',
+  'Dónde y cómo testearte en Buenos Aires',
+  'Qué hace Impulse Buenos Aires',
+  'Cómo sumarte como voluntarie',
+  'Activaciones, marchas y eventos',
+];
+---
+
+<BaseLayout title="Chatbot de voz" description={description}>
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-bg" aria-hidden="true">
+      <div class="bg-blob bg-blob-left"></div>
+      <div class="bg-blob bg-blob-right"></div>
+    </div>
+
+    <div class="container hero-content">
+      <div class="orb" aria-hidden="true">
+        <div class="orb-glow"></div>
+        <div class="orb-core"></div>
+        <div class="orb-shimmer"></div>
+      </div>
+
+      <p class="eyebrow">Asistente conversacional</p>
+      <h1 class="hero-title">Hablá con Impulse.</h1>
+      <p class="hero-subtitle">
+        Un asistente con voz para resolver tus dudas sobre salud sexual,
+        prevención del VIH y cómo trabaja Impulse Buenos Aires. Sin filas,
+        sin turnos, sin filtros.
+      </p>
+    </div>
+  </section>
+
+  <!-- Cómo usarlo -->
+  <section class="how">
+    <div class="container">
+      <p class="section-eyebrow">Cómo funciona</p>
+      <div class="how-grid">
+        {
+          steps.map((s) => (
+            <article class="step">
+              <span class="step-num">{s.num}</span>
+              <h3 class="step-title">{s.title}</h3>
+              <p class="step-text">{s.text}</p>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- De qué podés preguntar -->
+  <section class="topics">
+    <div class="container topics-container">
+      <p class="section-eyebrow">Sobre qué podés preguntar</p>
+      <ul class="topics-list">
+        {
+          topics.map((t) => (
+            <li class="topic">
+              <span class="topic-bullet" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="14" height="14">
+                  <polyline points="20 6 9 17 4 12" />
+                </svg>
+              </span>
+              <span>{t}</span>
+            </li>
+          ))
+        }
+      </ul>
+      <p class="disclaimer">
+        El asistente no reemplaza un diagnóstico ni una consulta médica.
+        Para temas urgentes, escribinos directamente.
+      </p>
+    </div>
+  </section>
+
+  <!-- Widget de ElevenLabs -->
+  <elevenlabs-convai agent-id="agent_0301krck1rt5e1f9572sq07dnj36"></elevenlabs-convai>
+  <script
+    src="https://unpkg.com/@elevenlabs/convai-widget-embed"
+    async
+    type="text/javascript"
+    is:inline></script>
+</BaseLayout>
+
+<style>
+  /* ---------- Hero ---------- */
+  .hero {
+    position: relative;
+    min-height: 70vh;
+    margin-top: -5rem;
+    padding: 8rem 1rem 4rem;
+    background-color: #000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    isolation: isolate;
+  }
+  @media (min-width: 768px) {
+    .hero {
+      padding: 10rem 1rem 6rem;
+    }
+  }
+
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  .bg-blob {
+    position: absolute;
+    filter: blur(110px);
+    will-change: transform;
+  }
+  .bg-blob-left {
+    top: 10%;
+    left: -15%;
+    width: 55%;
+    height: 80%;
+    background: radial-gradient(circle at center, rgba(0, 102, 255, 0.55) 0%, transparent 65%);
+    animation: drift-left 14s ease-in-out infinite alternate;
+  }
+  .bg-blob-right {
+    top: 0;
+    right: -15%;
+    width: 55%;
+    height: 90%;
+    background: radial-gradient(circle at center, rgba(150, 60, 220, 0.5) 0%, transparent 65%);
+    animation: drift-right 18s ease-in-out infinite alternate;
+  }
+
+  @keyframes drift-left {
+    0%   { transform: translate(0, 0) scale(1); }
+    100% { transform: translate(60px, 40px) scale(1.15); }
+  }
+  @keyframes drift-right {
+    0%   { transform: translate(0, 0) scale(1); }
+    100% { transform: translate(-50px, -30px) scale(1.18); }
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    max-width: 720px;
+  }
+
+  /* ---------- Orbe (mismo del home) ---------- */
+  .orb {
+    position: relative;
+    width: 180px;
+    height: 180px;
+    margin-bottom: 2.75rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .orb-glow {
+    position: absolute;
+    inset: -40%;
+    border-radius: 50%;
+    background: radial-gradient(
+      circle at center,
+      rgba(0, 102, 255, 0.35) 0%,
+      rgba(150, 60, 220, 0.15) 35%,
+      transparent 60%
+    );
+    animation: orb-pulse 4.5s ease-in-out infinite;
+    filter: blur(20px);
+  }
+  .orb-core {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background:
+      radial-gradient(circle at 32% 28%, rgba(220, 235, 255, 0.95) 0%, rgba(220, 235, 255, 0) 22%),
+      radial-gradient(circle at 70% 78%, rgba(150, 60, 220, 0.6) 0%, transparent 45%),
+      radial-gradient(circle at center, rgba(20, 80, 230, 1) 0%, rgba(10, 8, 40, 1) 75%, #000 100%);
+    box-shadow:
+      0 0 80px rgba(0, 102, 255, 0.45),
+      0 0 160px rgba(150, 60, 220, 0.25),
+      inset -10px -20px 40px rgba(0, 0, 0, 0.55),
+      inset 8px 12px 24px rgba(220, 235, 255, 0.1);
+    animation: orb-breathe 5s ease-in-out infinite;
+  }
+  .orb-shimmer {
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    background: conic-gradient(
+      from 0deg,
+      transparent 0deg,
+      rgba(220, 235, 255, 0.18) 60deg,
+      transparent 120deg,
+      transparent 240deg,
+      rgba(180, 120, 255, 0.15) 300deg,
+      transparent 360deg
+    );
+    animation: shimmer-rotate 8s linear infinite;
+    mix-blend-mode: screen;
+  }
+
+  @keyframes orb-breathe {
+    0%, 100% { transform: scale(1); }
+    50%      { transform: scale(1.035); }
+  }
+  @keyframes orb-pulse {
+    0%, 100% { opacity: 0.7; transform: scale(1); }
+    50%      { opacity: 1;   transform: scale(1.08); }
+  }
+  @keyframes shimmer-rotate {
+    to { transform: rotate(360deg); }
+  }
+
+  .eyebrow {
+    font-family: var(--font-body);
+    text-transform: uppercase;
+    letter-spacing: 0.3em;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: rgba(180, 200, 255, 0.85);
+    margin-bottom: 1rem;
+  }
+
+  .hero-title {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: clamp(48px, 7vw, 80px);
+    line-height: 1;
+    letter-spacing: -0.025em;
+    color: var(--color-white);
+    margin-bottom: 1.25rem;
+    background: linear-gradient(180deg, #ffffff 0%, rgba(255, 255, 255, 0.7) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .hero-subtitle {
+    font-family: var(--font-body);
+    font-size: clamp(17px, 1.8vw, 19px);
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.75);
+    max-width: 560px;
+  }
+
+  /* ---------- Section eyebrow ---------- */
+  .section-eyebrow {
+    font-family: var(--font-body);
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--color-accent);
+    margin-bottom: 2.5rem;
+  }
+
+  /* ---------- Cómo funciona ---------- */
+  .how {
+    background-color: var(--color-bg);
+    padding: 4rem 0;
+  }
+  @media (min-width: 768px) {
+    .how { padding: 6rem 0; }
+  }
+
+  .how-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  @media (min-width: 768px) {
+    .how-grid {
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+    }
+  }
+
+  .step {
+    background-color: var(--color-surface);
+    padding: 2rem;
+    border-radius: 4px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .step-num {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 40px;
+    color: var(--color-accent);
+    line-height: 1;
+    margin-bottom: 1rem;
+  }
+
+  .step-title {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 22px;
+    color: var(--color-white);
+    margin-bottom: 0.6rem;
+    letter-spacing: -0.01em;
+  }
+
+  .step-text {
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: var(--color-muted);
+  }
+
+  /* ---------- Topics ---------- */
+  .topics {
+    background-color: var(--color-surface);
+    padding: 4rem 0;
+  }
+  @media (min-width: 768px) {
+    .topics { padding: 6rem 0; }
+  }
+
+  .topics-container {
+    max-width: 720px;
+  }
+
+  .topics-list {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .topic {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    color: var(--color-text);
+    font-family: var(--font-body);
+    font-size: 1.05rem;
+  }
+
+  .topic-bullet {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background-color: var(--color-accent);
+    color: var(--color-white);
+    flex-shrink: 0;
+  }
+
+  .disclaimer {
+    font-family: var(--font-body);
+    font-size: 0.85rem;
+    color: var(--color-muted);
+    line-height: 1.6;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--color-border);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .bg-blob,
+    .orb-core,
+    .orb-glow,
+    .orb-shimmer {
+      animation: none;
+    }
+  }
+</style>

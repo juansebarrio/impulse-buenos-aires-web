@@ -3,69 +3,152 @@
 ---
 
 <section class="chatbot">
-  <div class="container chatbot-content">
-    <div class="chatbot-icon" aria-hidden="true">
-      <span class="pulse"></span>
-      <span class="pulse pulse-delay"></span>
-      <svg
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        width="36"
-        height="36"
-      >
-        <path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3z" />
-        <path d="M19 10v2a7 7 0 0 1-14 0v-2" />
-        <line x1="12" y1="19" x2="12" y2="22" />
-      </svg>
-    </div>
+  <div class="chatbot-bg" aria-hidden="true">
+    <div class="bg-blob bg-blob-left"></div>
+    <div class="bg-blob bg-blob-right"></div>
+    <div class="bg-blob bg-blob-bottom"></div>
+  </div>
 
-    <p class="eyebrow">Chatbot de voz</p>
+  <div class="container chatbot-content">
+    <a href="/chatbot" class="orb" aria-label="Iniciar chat de voz">
+      <div class="orb-glow"></div>
+      <div class="orb-core"></div>
+      <div class="orb-shimmer"></div>
+      <span class="orb-hint">Tocá para hablar</span>
+    </a>
+
+    <p class="eyebrow">Asistente conversacional</p>
     <h2 class="title">Preguntale a Impulse.</h2>
     <p class="description">
-      Un asistente conversacional con voz para responder dudas sobre salud
-      sexual, prevención del VIH y cómo trabaja Impulse Buenos Aires.
-      Habla en voz alta, te responde en voz alta. Sin turnos, sin esperas,
+      Un asistente para responder dudas sobre salud sexual, prevención del
+      VIH y cómo trabaja Impulse Buenos Aires. Sin turnos, sin esperas,
       sin filtros.
     </p>
-    <a href="/chatbot" class="cta-button">
-      <svg
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        width="18"
-        height="18"
-        aria-hidden="true"
-      >
-        <path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3z" />
-        <path d="M19 10v2a7 7 0 0 1-14 0v-2" />
-        <line x1="12" y1="19" x2="12" y2="22" />
-      </svg>
-      Abrir chat de voz
-    </a>
+
+    <div class="cta-row">
+      <a href="/chatbot" class="cta-button cta-button--voice">
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          width="18"
+          height="18"
+          aria-hidden="true"
+        >
+          <path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3z" />
+          <path d="M19 10v2a7 7 0 0 1-14 0v-2" />
+          <line x1="12" y1="19" x2="12" y2="22" />
+        </svg>
+        Charlar
+      </a>
+      <a href="/chatbot" class="cta-button">
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          width="18"
+          height="18"
+          aria-hidden="true"
+        >
+          <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+        </svg>
+        Chatear
+      </a>
+    </div>
   </div>
 </section>
 
 <style>
   .chatbot {
-    background-color: var(--color-bg);
-    padding: 4rem 0;
     position: relative;
+    background-color: #000;
+    padding: 6rem 0;
     overflow: hidden;
+    isolation: isolate;
   }
   @media (min-width: 768px) {
     .chatbot {
-      padding: 6rem 0;
+      padding: 8rem 0;
     }
   }
 
+  /* ---------- Fondo: blobs animados desde los costados ---------- */
+  .chatbot-bg {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .bg-blob {
+    position: absolute;
+    filter: blur(110px);
+    will-change: transform;
+  }
+
+  .bg-blob-left {
+    top: 10%;
+    left: -15%;
+    width: 55%;
+    height: 80%;
+    background: radial-gradient(
+      circle at center,
+      rgba(0, 102, 255, 0.55) 0%,
+      transparent 65%
+    );
+    animation: drift-left 14s ease-in-out infinite alternate;
+  }
+
+  .bg-blob-right {
+    top: 0;
+    right: -15%;
+    width: 55%;
+    height: 90%;
+    background: radial-gradient(
+      circle at center,
+      rgba(150, 60, 220, 0.5) 0%,
+      transparent 65%
+    );
+    animation: drift-right 18s ease-in-out infinite alternate;
+  }
+
+  .bg-blob-bottom {
+    bottom: -20%;
+    left: 30%;
+    width: 40%;
+    height: 60%;
+    background: radial-gradient(
+      circle at center,
+      rgba(200, 50, 130, 0.35) 0%,
+      transparent 70%
+    );
+    animation: drift-bottom 22s ease-in-out infinite alternate;
+  }
+
+  @keyframes drift-left {
+    0%   { transform: translate(0, 0) scale(1); }
+    100% { transform: translate(60px, 40px) scale(1.15); }
+  }
+  @keyframes drift-right {
+    0%   { transform: translate(0, 0) scale(1); }
+    100% { transform: translate(-50px, -30px) scale(1.18); }
+  }
+  @keyframes drift-bottom {
+    0%   { transform: translate(0, 0) scale(1); }
+    100% { transform: translate(-30px, -50px) scale(1.1); }
+  }
+
+  /* ---------- Contenido ---------- */
   .chatbot-content {
+    position: relative;
+    z-index: 1;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -73,100 +156,238 @@
     max-width: 640px;
   }
 
-  /* ---------- Ícono con pulso ---------- */
-  .chatbot-icon {
+  /* ---------- Orbe ---------- */
+  .orb {
     position: relative;
-    width: 96px;
-    height: 96px;
+    width: 160px;
+    height: 160px;
+    margin-bottom: 2.75rem;
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: var(--color-accent);
-    color: var(--color-white);
-    border-radius: 50%;
-    margin-bottom: 2.5rem;
-    flex-shrink: 0;
+    cursor: pointer;
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    text-decoration: none;
+  }
+  .orb:hover {
+    transform: scale(1.06);
+  }
+  .orb:active {
+    transform: scale(0.98);
+    transition-duration: 0.1s;
   }
 
-  .pulse {
+  .orb-hint {
+    position: absolute;
+    bottom: -2.25rem;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: var(--font-body);
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: rgba(255, 255, 255, 0.55);
+    white-space: nowrap;
+    opacity: 0;
+    transition: opacity var(--transition);
+    pointer-events: none;
+  }
+  .orb:hover .orb-hint,
+  .orb:focus-visible .orb-hint {
+    opacity: 1;
+  }
+
+  .orb:focus-visible {
+    outline: none;
+  }
+  .orb:focus-visible .orb-core {
+    box-shadow:
+      0 0 0 3px rgba(180, 200, 255, 0.4),
+      0 0 80px rgba(0, 102, 255, 0.55),
+      0 0 160px rgba(150, 60, 220, 0.3),
+      inset -10px -20px 40px rgba(0, 0, 0, 0.55),
+      inset 8px 12px 24px rgba(220, 235, 255, 0.1);
+  }
+
+  .orb-glow {
+    position: absolute;
+    inset: -40%;
+    border-radius: 50%;
+    background: radial-gradient(
+      circle at center,
+      rgba(0, 102, 255, 0.35) 0%,
+      rgba(150, 60, 220, 0.15) 35%,
+      transparent 60%
+    );
+    animation: orb-pulse 4.5s ease-in-out infinite;
+    filter: blur(20px);
+  }
+
+  .orb-core {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background:
+      radial-gradient(
+        circle at 32% 28%,
+        rgba(220, 235, 255, 0.95) 0%,
+        rgba(220, 235, 255, 0) 22%
+      ),
+      radial-gradient(
+        circle at 70% 78%,
+        rgba(150, 60, 220, 0.6) 0%,
+        transparent 45%
+      ),
+      radial-gradient(
+        circle at center,
+        rgba(20, 80, 230, 1) 0%,
+        rgba(10, 8, 40, 1) 75%,
+        #000 100%
+      );
+    box-shadow:
+      0 0 80px rgba(0, 102, 255, 0.45),
+      0 0 160px rgba(150, 60, 220, 0.25),
+      inset -10px -20px 40px rgba(0, 0, 0, 0.55),
+      inset 8px 12px 24px rgba(220, 235, 255, 0.1);
+    animation: orb-breathe 5s ease-in-out infinite;
+  }
+
+  .orb-shimmer {
     position: absolute;
     inset: 0;
     border-radius: 50%;
-    background-color: var(--color-accent);
-    opacity: 0.45;
-    animation: pulse 2.6s ease-out infinite;
-    pointer-events: none;
-  }
-  .pulse-delay {
-    animation-delay: 1.3s;
-  }
-
-  @keyframes pulse {
-    0% {
-      transform: scale(1);
-      opacity: 0.45;
-    }
-    100% {
-      transform: scale(1.8);
-      opacity: 0;
-    }
+    background: conic-gradient(
+      from 0deg,
+      transparent 0deg,
+      rgba(220, 235, 255, 0.18) 60deg,
+      transparent 120deg,
+      transparent 240deg,
+      rgba(180, 120, 255, 0.15) 300deg,
+      transparent 360deg
+    );
+    animation: shimmer-rotate 8s linear infinite;
+    mix-blend-mode: screen;
   }
 
-  .chatbot-icon svg {
-    position: relative;
-    z-index: 1;
+  @keyframes orb-breathe {
+    0%, 100% { transform: scale(1); }
+    50%      { transform: scale(1.035); }
   }
 
-  /* ---------- Texto ---------- */
+  @keyframes orb-pulse {
+    0%, 100% { opacity: 0.7; transform: scale(1); }
+    50%      { opacity: 1;   transform: scale(1.08); }
+  }
+
+  @keyframes shimmer-rotate {
+    to { transform: rotate(360deg); }
+  }
+
+  /* ---------- Tipografía ---------- */
   .eyebrow {
     font-family: var(--font-body);
     text-transform: uppercase;
-    letter-spacing: 0.25em;
-    font-size: 0.8rem;
+    letter-spacing: 0.3em;
+    font-size: 0.75rem;
     font-weight: 600;
-    color: var(--color-accent);
+    color: rgba(180, 200, 255, 0.85);
     margin-bottom: 1rem;
   }
 
   .title {
     font-family: var(--font-display);
     font-weight: 700;
-    font-size: clamp(40px, 5.5vw, 64px);
-    line-height: 1.05;
+    font-size: clamp(44px, 6vw, 72px);
+    line-height: 1.02;
+    letter-spacing: -0.025em;
     color: var(--color-white);
-    letter-spacing: -0.02em;
     margin-bottom: 1.25rem;
+    background: linear-gradient(
+      180deg,
+      #ffffff 0%,
+      rgba(255, 255, 255, 0.7) 100%
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
   }
 
   .description {
     font-family: var(--font-body);
-    font-size: clamp(17px, 1.7vw, 19px);
-    line-height: 1.6;
-    color: var(--color-muted);
-    margin-bottom: 2.25rem;
+    font-size: clamp(16px, 1.6vw, 18px);
+    line-height: 1.65;
+    color: rgba(255, 255, 255, 0.7);
+    margin-bottom: 2.5rem;
   }
 
-  /* ---------- CTA ---------- */
+  /* ---------- CTAs ---------- */
+  .cta-row {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    width: 100%;
+    max-width: 360px;
+  }
+  @media (min-width: 480px) {
+    .cta-row {
+      flex-direction: row;
+      justify-content: center;
+      width: auto;
+      max-width: none;
+      gap: 0.85rem;
+    }
+  }
+
   .cta-button {
     display: inline-flex;
     align-items: center;
+    justify-content: center;
     gap: 0.6rem;
-    background-color: var(--color-accent);
+    background-color: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
     color: var(--color-white);
-    padding: 14px 26px;
-    border-radius: 4px;
+    padding: 14px 28px;
+    border-radius: 999px;
     font-family: var(--font-body);
     font-weight: 600;
-    font-size: 1rem;
-    border: 1px solid var(--color-accent);
-    transition: background-color var(--transition), border-color var(--transition);
+    font-size: 0.95rem;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    transition:
+      background-color var(--transition),
+      border-color var(--transition),
+      box-shadow var(--transition),
+      transform var(--transition);
   }
   .cta-button:hover {
-    background-color: var(--color-accent-hover);
-    border-color: var(--color-accent-hover);
+    background-color: rgba(255, 255, 255, 0.1);
+    border-color: rgba(180, 200, 255, 0.45);
+    box-shadow:
+      0 0 0 4px rgba(0, 102, 255, 0.12),
+      0 8px 32px rgba(0, 102, 255, 0.25);
+    transform: translateY(-1px);
+  }
+
+  .cta-button--voice {
+    background-color: rgba(0, 102, 255, 0.18);
+    border-color: rgba(0, 102, 255, 0.5);
+  }
+  .cta-button--voice:hover {
+    background-color: rgba(0, 102, 255, 0.3);
+    border-color: rgba(0, 102, 255, 0.75);
+    box-shadow:
+      0 0 0 4px rgba(0, 102, 255, 0.18),
+      0 8px 32px rgba(0, 102, 255, 0.4);
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .pulse { animation: none; opacity: 0; }
+    .bg-blob,
+    .orb-core,
+    .orb-glow,
+    .orb-shimmer {
+      animation: none;
+    }
   }
 </style>
