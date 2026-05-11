@@ -1,0 +1,131 @@
+---
+const navLinks = [
+  { href: '/', label: 'Inicio' },
+  { href: '/sobre-nosotros', label: 'Sobre nosotros' },
+  { href: '/marchas', label: 'Marchas' },
+  { href: '/activaciones', label: 'Activaciones' },
+  { href: '/testeos', label: 'Testeos' },
+  { href: '/chatbot', label: 'ChatBOT' },
+];
+
+const volunteersURL = 'https://azcv9sy8ps4.typeform.com/to/J2fwlRp8';
+const sponsorsEmail = 'mailto:juanse.barrio@aidshealth.org';
+const instagramURL = 'https://www.instagram.com/impulsebsas';
+---
+
+<footer class="bg-surface border-t border-border py-10 md:py-16">
+  <div class="container">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-12">
+      <div class="flex flex-col gap-4">
+        <a href="/" class="inline-block" aria-label="Inicio">
+          <img
+            src="/images/logos/logo-azul.png"
+            alt="Impulse Buenos Aires"
+            class="h-10 w-auto"
+          />
+        </a>
+        <p>Buenos Aires, Argentina</p>
+        <p class="text-sm text-muted">
+          Parte de Impulse Group · Con el apoyo de AHF
+        </p>
+      </div>
+
+      <div class="flex flex-col gap-4">
+        <h3 class="footer-heading">Navegá</h3>
+        <ul class="flex flex-col gap-2">
+          {
+            navLinks.map((link) => (
+              <li>
+                <a href={link.href} class="footer-link">
+                  {link.label}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+
+      <div class="flex flex-col gap-4">
+        <h3 class="footer-heading">Contacto</h3>
+        <p>¿Querés sumarte o trabajar con nosotros?</p>
+        <div class="flex flex-col gap-2">
+          <a
+            href={volunteersURL}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="footer-link"
+          >
+            Formulario voluntarios →
+          </a>
+          <a href={sponsorsEmail} class="footer-link">
+            Empresas y sponsors →
+          </a>
+        </div>
+        <a
+          href={instagramURL}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="footer-social mt-2"
+          aria-label="Instagram de Impulse Buenos Aires"
+        >
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            width="20"
+            height="20"
+            aria-hidden="true"
+          >
+            <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+            <line x1="17.5" y1="6.5" x2="17.5" y2="6.5" />
+          </svg>
+        </a>
+      </div>
+    </div>
+
+    <div class="border-t border-border mt-12 pt-6 text-center text-sm text-muted">
+      © 2026 Impulse Buenos Aires. Todos los derechos reservados.
+    </div>
+  </div>
+</footer>
+
+<style>
+  .footer-heading {
+    font-family: var(--font-display);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-size: 0.85rem;
+    color: var(--color-muted);
+    font-weight: 700;
+  }
+
+  .footer-link {
+    color: var(--color-text);
+    transition: color var(--transition);
+    display: inline-block;
+    width: fit-content;
+  }
+  .footer-link:hover {
+    color: var(--color-accent);
+  }
+
+  .footer-social {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    color: var(--color-text);
+    transition: color var(--transition), border-color var(--transition);
+  }
+  .footer-social:hover {
+    color: var(--color-accent);
+    border-color: var(--color-accent);
+  }
+</style>

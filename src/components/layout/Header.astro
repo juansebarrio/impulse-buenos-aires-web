@@ -1,0 +1,300 @@
+---
+const projectLinks = [
+  { href: '/marchas', label: 'Marchas del Orgullo' },
+  { href: '/activaciones', label: 'Activaciones Urbanas' },
+  { href: '/vih-sida', label: 'Día VIH/SIDA' },
+  { href: '/debates', label: 'Debates que Impulsan' },
+  { href: '/deporte', label: 'Impulse Deporte' },
+  { href: '/chatbot', label: 'ChatBOT' },
+  { href: '/vivir', label: 'Vivir' },
+  { href: '/testeos', label: 'Testeos' },
+];
+
+const pathname = Astro.url.pathname;
+const isActive = (path) => pathname === path;
+const projectsActive = projectLinks.some((l) => isActive(l.href));
+
+const sumarteURL = 'https://azcv9sy8ps4.typeform.com/to/J2fwlRp8';
+---
+
+<header id="site-header" class="sticky top-0 z-50 transition-colors duration-300">
+  <div class="container flex items-center justify-between h-20">
+    <a href="/" class="shrink-0" aria-label="Inicio">
+      <img src="/images/logos/logo-azul.png" alt="Impulse Buenos Aires" class="h-9 w-auto" />
+    </a>
+
+    <nav class="hidden md:flex items-center gap-9 font-display">
+      <a
+        href="/sobre-nosotros"
+        class:list={['nav-link', { active: isActive('/sobre-nosotros') }]}
+      >
+        Sobre nosotros
+      </a>
+
+      <div class="relative group">
+        <button
+          type="button"
+          class:list={['nav-link inline-flex items-center gap-1.5', { active: projectsActive }]}
+          aria-haspopup="true"
+        >
+          Proyectos
+          <svg
+            class="w-3 h-3 transition-transform duration-200 group-hover:rotate-180"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <polyline points="6 9 12 15 18 9" />
+          </svg>
+        </button>
+
+        <div
+          class="dropdown absolute left-1/2 -translate-x-1/2 top-full pt-3 opacity-0 invisible translate-y-2 group-hover:opacity-100 group-hover:visible group-hover:translate-y-0 group-focus-within:opacity-100 group-focus-within:visible group-focus-within:translate-y-0 transition-all duration-200"
+        >
+          <ul class="bg-surface border border-border rounded-md py-2 min-w-[240px] shadow-2xl">
+            {
+              projectLinks.map((link) => (
+                <li>
+                  <a
+                    href={link.href}
+                    class:list={['dropdown-item', { active: isActive(link.href) }]}
+                  >
+                    {link.label}
+                  </a>
+                </li>
+              ))
+            }
+          </ul>
+        </div>
+      </div>
+
+      <a
+        href={sumarteURL}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="nav-link"
+      >
+        Sumarte
+      </a>
+    </nav>
+
+    <button
+      id="menu-toggle"
+      type="button"
+      class="md:hidden w-10 h-10 flex flex-col items-center justify-center gap-1.5"
+      aria-label="Abrir menú"
+      aria-controls="mobile-menu"
+      aria-expanded="false"
+    >
+      <span class="hamburger-line"></span>
+      <span class="hamburger-line"></span>
+      <span class="hamburger-line"></span>
+    </button>
+  </div>
+
+  <div
+    id="mobile-menu"
+    class="fixed inset-x-0 bottom-0 top-20 bg-bg z-40 hidden md:hidden overflow-y-auto"
+  >
+    <nav class="container py-10 flex flex-col gap-7 font-display text-3xl">
+      <a
+        href="/sobre-nosotros"
+        class:list={['nav-link-mobile', { active: isActive('/sobre-nosotros') }]}
+      >
+        Sobre nosotros
+      </a>
+
+      <div>
+        <button
+          id="projects-accordion"
+          type="button"
+          class:list={['nav-link-mobile w-full flex items-center justify-between', { active: projectsActive }]}
+          aria-expanded="false"
+          aria-controls="projects-submenu"
+        >
+          Proyectos
+          <svg
+            class="w-5 h-5 transition-transform duration-200"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <polyline points="6 9 12 15 18 9" />
+          </svg>
+        </button>
+        <ul
+          id="projects-submenu"
+          class="hidden flex-col gap-4 pl-5 mt-4 text-2xl"
+        >
+          {
+            projectLinks.map((link) => (
+              <li>
+                <a
+                  href={link.href}
+                  class:list={['nav-link-mobile', { active: isActive(link.href) }]}
+                >
+                  {link.label}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+
+      <a
+        href={sumarteURL}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="nav-link-mobile"
+      >
+        Sumarte
+      </a>
+    </nav>
+  </div>
+</header>
+
+<style>
+  #site-header {
+    background-color: transparent;
+  }
+  #site-header.is-scrolled {
+    background-color: color-mix(in srgb, var(--color-bg) 95%, transparent);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .nav-link {
+    color: var(--color-text);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    font-weight: 600;
+    font-size: 0.95rem;
+    transition: color var(--transition);
+    background: transparent;
+    border: 0;
+    cursor: pointer;
+  }
+  .nav-link:hover,
+  .nav-link.active {
+    color: var(--color-accent);
+  }
+
+  .dropdown-item {
+    display: block;
+    padding: 0.6rem 1.1rem;
+    color: var(--color-text);
+    font-weight: 500;
+    font-family: var(--font-body);
+    white-space: nowrap;
+    transition: color var(--transition), background-color var(--transition);
+  }
+  .dropdown-item:hover,
+  .dropdown-item.active {
+    color: var(--color-accent);
+    background-color: var(--color-surface-2);
+  }
+
+  .nav-link-mobile {
+    color: var(--color-text);
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    font-weight: 600;
+    text-align: left;
+    background: transparent;
+    border: 0;
+    cursor: pointer;
+    transition: color var(--transition);
+  }
+  .nav-link-mobile:hover,
+  .nav-link-mobile.active {
+    color: var(--color-accent);
+  }
+
+  .hamburger-line {
+    display: block;
+    width: 24px;
+    height: 2px;
+    background-color: var(--color-text);
+    transform-origin: center;
+    transition: transform var(--transition), opacity var(--transition);
+  }
+  #menu-toggle.is-open .hamburger-line:nth-child(1) {
+    transform: translateY(8px) rotate(45deg);
+  }
+  #menu-toggle.is-open .hamburger-line:nth-child(2) {
+    opacity: 0;
+  }
+  #menu-toggle.is-open .hamburger-line:nth-child(3) {
+    transform: translateY(-8px) rotate(-45deg);
+  }
+
+  #mobile-menu.is-open {
+    display: block;
+  }
+
+  #projects-submenu.is-open {
+    display: flex;
+  }
+  #projects-accordion.is-open svg {
+    transform: rotate(180deg);
+  }
+</style>
+
+<script>
+  const header = document.getElementById('site-header');
+  const menuToggle = document.getElementById('menu-toggle');
+  const mobileMenu = document.getElementById('mobile-menu');
+  const projectsAccordion = document.getElementById('projects-accordion');
+  const projectsSubmenu = document.getElementById('projects-submenu');
+
+  const handleScroll = () => {
+    if (window.scrollY > 10) {
+      header.classList.add('is-scrolled');
+    } else {
+      header.classList.remove('is-scrolled');
+    }
+  };
+  window.addEventListener('scroll', handleScroll, { passive: true });
+  handleScroll();
+
+  const closeMenu = () => {
+    menuToggle.classList.remove('is-open');
+    mobileMenu.classList.remove('is-open');
+    projectsAccordion.classList.remove('is-open');
+    projectsSubmenu.classList.remove('is-open');
+    menuToggle.setAttribute('aria-expanded', 'false');
+    projectsAccordion.setAttribute('aria-expanded', 'false');
+    document.body.style.overflow = '';
+  };
+
+  menuToggle.addEventListener('click', () => {
+    const isOpen = menuToggle.classList.toggle('is-open');
+    mobileMenu.classList.toggle('is-open');
+    menuToggle.setAttribute('aria-expanded', String(isOpen));
+    document.body.style.overflow = isOpen ? 'hidden' : '';
+    if (!isOpen) {
+      projectsAccordion.classList.remove('is-open');
+      projectsSubmenu.classList.remove('is-open');
+      projectsAccordion.setAttribute('aria-expanded', 'false');
+    }
+  });
+
+  projectsAccordion.addEventListener('click', () => {
+    const isOpen = projectsAccordion.classList.toggle('is-open');
+    projectsSubmenu.classList.toggle('is-open');
+    projectsAccordion.setAttribute('aria-expanded', String(isOpen));
+  });
+
+  mobileMenu.querySelectorAll('a').forEach((link) => {
+    link.addEventListener('click', closeMenu);
+  });
+</script>

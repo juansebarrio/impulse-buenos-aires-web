@@ -1,0 +1,14 @@
+{
+  "framework": "astro",
+  "buildCommand": "npm run build",
+  "outputDirectory": "dist",
+  "redirects": [
+    { "source": "/sobre-impulse-buenos-aires-1", "destination": "/sobre-nosotros", "permanent": true },
+    { "source": "/marchas-del-orgullo",           "destination": "/marchas",        "permanent": true },
+    { "source": "/dia-en-respuesta-al-vih/sida",  "destination": "/vih-sida",       "permanent": true },
+    { "source": "/debates-q",                     "destination": "/debates",        "permanent": true },
+    { "source": "/impulse",                       "destination": "/deporte",        "permanent": true },
+    { "source": "/servicios-6",                   "destination": "/testeos",        "permanent": true },
+    { "source": "/home",                          "destination": "/",               "permanent": true }
+  ]
+}

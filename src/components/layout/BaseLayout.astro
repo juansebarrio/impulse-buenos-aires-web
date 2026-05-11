@@ -1,0 +1,45 @@
+---
+import Header from './Header.astro';
+import Footer from './Footer.astro';
+import '../../styles/global.css';
+
+const {
+  title,
+  description = 'ONG centrada en la comunidad LGBTQI+ con foco en prevención y tratamiento de VIH, salud mental y prácticas sexuales seguras. Buenos Aires.',
+  ogImage = '/images/logos/logo-azul.png',
+} = Astro.props;
+
+const fullTitle = `${title} — Impulse Buenos Aires`;
+const canonicalURL = new URL(Astro.url.pathname, Astro.site ?? Astro.url).toString();
+const ogImageURL = new URL(ogImage, Astro.site ?? Astro.url).toString();
+---
+
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+
+    <link rel="canonical" href={canonicalURL} />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={ogImageURL} />
+    <meta property="og:url" content={canonicalURL} />
+
+    <meta name="twitter:card" content="summary_large_image" />
+  </head>
+  <body>
+    <Header />
+    <main>
+      <slot />
+    </main>
+    <Footer />
+  </body>
+</html>
