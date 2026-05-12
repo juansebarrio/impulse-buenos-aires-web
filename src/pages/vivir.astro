@@ -1,8 +1,8 @@
 ---
 import BaseLayout from '../components/layout/BaseLayout.astro';
 
-const heroVideo = '/images/arte/legislatura_vid.mp4';
-const videoPoster = '/images/arte/VIHVIR__2_.jpg';
+const vimeoId = '1191383889';
+const vimeoEmbed = `https://player.vimeo.com/video/${vimeoId}?autoplay=1&loop=1&muted=1&playsinline=1&byline=0&title=0&portrait=0&dnt=1`;
 const legislaturaLogo = '/images/logos/logo-lcaba.png';
 
 const gallery = [
@@ -39,17 +39,15 @@ const description =
 
   <!-- 2. Video -->
   <section class="video-section">
-    <video
-      class="hero-video"
-      src={heroVideo}
-      poster={videoPoster}
-      autoplay
-      muted
-      loop
-      playsinline
-      preload="auto"
-      controls
-    ></video>
+    <div class="hero-video-wrap">
+      <iframe
+        class="hero-video"
+        src={vimeoEmbed}
+        title="Vivir — Muestra en la Legislatura porteña 2024"
+        allow="autoplay; fullscreen; picture-in-picture; clipboard-write"
+        allowfullscreen
+      ></iframe>
+    </div>
     <div class="container video-caption">
       <p>Legislatura de la Ciudad de Buenos Aires · 2024</p>
     </div>
@@ -198,17 +196,27 @@ const description =
     background-color: #000;
   }
 
-  .hero-video {
+  .hero-video-wrap {
+    position: relative;
     width: 100%;
-    height: 80vh;
-    object-fit: cover;
-    display: block;
-    background-color: #000;
+    background: #000;
+    overflow: hidden;
+    aspect-ratio: 16 / 9;
   }
-  @media (max-width: 768px) {
-    .hero-video {
-      height: auto;
+  @media (min-width: 768px) {
+    .hero-video-wrap {
+      aspect-ratio: auto;
+      height: 80vh;
     }
+  }
+
+  .hero-video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+    display: block;
   }
 
   .video-caption {
