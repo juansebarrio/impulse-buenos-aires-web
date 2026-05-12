@@ -1,0 +1,592 @@
+---
+import fs from 'node:fs';
+import path from 'node:path';
+import BaseLayout from '../components/layout/BaseLayout.astro';
+
+const vihDir = path.join(process.cwd(), 'public/images/vih-sida');
+let galleryUrls = [];
+try {
+  const files = fs
+    .readdirSync(vihDir)
+    .filter((f) => /\.(jpe?g|png|webp)$/i.test(f))
+    .sort((a, b) => a.localeCompare(b, undefined, { numeric: true }));
+  galleryUrls = files.map((f) => `/images/vih-sida/${f}`);
+} catch (_e) {
+  galleryUrls = [];
+}
+
+const ogImage = galleryUrls[0] ?? '/images/logos/logo-azul.png';
+
+// Distribuir las 12 imágenes en dos galerías de 6 cada una.
+const gallery1 = galleryUrls.slice(0, 6);
+const gallery2 = galleryUrls.slice(6, 12);
+const allGalleryImages = [...gallery1, ...gallery2];
+
+const instagramURL = 'https://www.instagram.com/impulsebsas';
+
+const description =
+  'El 1° de diciembre Impulse Buenos Aires transforma el Día Internacional de Respuesta al VIH/SIDA en una experiencia comunitaria, sensorial y de activismo. Buenos Aires.';
+---
+
+<BaseLayout
+  title="Día Internacional de Respuesta al VIH/SIDA"
+  description={description}
+  ogImage={ogImage}
+>
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-bg" aria-hidden="true">
+      <div class="bg-blob bg-blob-1"></div>
+      <div class="bg-blob bg-blob-2"></div>
+      <div class="bg-blob bg-blob-3"></div>
+    </div>
+    <div class="hero-overlay"></div>
+    <div class="container hero-content">
+      <h1 class="hero-title">
+        Día Internacional<br />de Respuesta<br />al VIH/SIDA.
+      </h1>
+      <p class="hero-meta">1° de Diciembre · Buenos Aires</p>
+    </div>
+  </section>
+
+  <!-- Saber es Amar -->
+  <section class="event">
+    <div class="container event-content">
+      <p class="event-eyebrow">
+        <span class="event-eyebrow-rule"></span>
+        Saber es Amar
+        <span class="event-eyebrow-rule"></span>
+      </p>
+      <h2 class="event-title">1° de Diciembre en Buenos Aires.</h2>
+
+      <div class="event-text">
+        <p>
+          Este 1° de diciembre transformamos el Día Mundial en Respuesta al
+          VIH/Sida en una experiencia sensorial, afectiva y profundamente
+          comunitaria. Desde Impulse Buenos Aires propusimos un recorrido
+          que invitó a mirar el VIH sin distancia ni miedo, convirtiendo el
+          cuidado en un lenguaje hecho de cuerpos, memoria, deseo y
+          presencia.
+        </p>
+        <p>
+          En un espacio construido con luz roja tenue, texturas analógicas,
+          estética ochentosa reinterpretada y gestos íntimos, Saber es Amar
+          reunió prácticas de prevención, arte y militancia contemporánea
+          para mostrar que el amor también es una forma de activismo.
+        </p>
+        <p>
+          Cada instante del evento buscó abrir la conversación, derribar
+          estigmas y celebrar que hoy podemos habitar la prevención desde
+          el deseo, el encuentro y la conciencia colectiva.
+        </p>
+      </div>
+
+      <p class="event-quote">
+        “Porque saber es amar. Y amar, sin miedo, también es memoria y
+        activismo.”
+      </p>
+    </div>
+  </section>
+
+  {
+    allGalleryImages.length === 0 ? (
+      <section class="gallery-empty">
+        <div class="container">
+          <p class="empty-message">Fotos del evento — próximamente.</p>
+        </div>
+      </section>
+    ) : (
+      <>
+        {/* Galería 1 */}
+        <section class="gallery gallery-top">
+          <div class="container">
+            <div class="gallery-grid">
+              {gallery1.map((src, i) => (
+                <button class="gallery-item" data-index={i} aria-label={`Abrir foto ${i + 1}`}>
+                  <img src={src} alt={`Saber es Amar — foto ${i + 1}`} loading="lazy" />
+                </button>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Galería 2 */}
+        {gallery2.length > 0 && (
+          <section class="gallery gallery-bottom">
+            <div class="container">
+              <div class="gallery-grid">
+                {gallery2.map((src, i) => (
+                  <button class="gallery-item" data-index={gallery1.length + i} aria-label={`Abrir foto ${gallery1.length + i + 1}`}>
+                    <img src={src} alt={`Saber es Amar — foto ${gallery1.length + i + 1}`} loading="lazy" />
+                  </button>
+                ))}
+              </div>
+            </div>
+          </section>
+        )}
+      </>
+    )
+  }
+
+  <!-- CTA -->
+  <section class="cta">
+    <div class="container cta-content">
+      <p class="cta-eyebrow">Cada 1° de diciembre</p>
+      <h2 class="cta-title">El cuidado también es un acto político.</h2>
+      <p class="cta-text">Seguinos para no perderte la próxima edición.</p>
+      <a
+        href={instagramURL}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="cta-button"
+      >
+        Seguir en Instagram
+      </a>
+    </div>
+  </section>
+
+  <!-- Lightbox -->
+  {
+    allGalleryImages.length > 0 && (
+      <dialog id="lightbox" class="lightbox" aria-label="Visor de fotos">
+        <button class="lightbox-close" aria-label="Cerrar visor">×</button>
+        <button class="lightbox-prev" aria-label="Foto anterior">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="32" height="32" aria-hidden="true">
+            <polyline points="15 18 9 12 15 6" />
+          </svg>
+        </button>
+        <img class="lightbox-img" alt="" />
+        <button class="lightbox-next" aria-label="Foto siguiente">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="32" height="32" aria-hidden="true">
+            <polyline points="9 18 15 12 9 6" />
+          </svg>
+        </button>
+      </dialog>
+    )
+  }
+</BaseLayout>
+
+<style define:vars={{ vihRed: '#CC0000' }}>
+  /* ---------- Hero ---------- */
+  .hero {
+    position: relative;
+    min-height: 100vh;
+    margin-top: -5rem;
+    display: flex;
+    align-items: flex-end;
+    padding-bottom: 5rem;
+    background-color: #0a0000;
+    overflow: hidden;
+    isolation: isolate;
+  }
+
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  .bg-blob {
+    position: absolute;
+    filter: blur(110px);
+    will-change: transform;
+  }
+
+  .bg-blob-1 {
+    top: 5%;
+    left: -10%;
+    width: 60%;
+    height: 80%;
+    background: radial-gradient(
+      circle at center,
+      rgba(204, 0, 0, 0.55) 0%,
+      transparent 65%
+    );
+    animation: drift-1 14s ease-in-out infinite alternate;
+  }
+  .bg-blob-2 {
+    top: -5%;
+    right: -10%;
+    width: 55%;
+    height: 90%;
+    background: radial-gradient(
+      circle at center,
+      rgba(180, 30, 60, 0.5) 0%,
+      transparent 60%
+    );
+    animation: drift-2 18s ease-in-out infinite alternate;
+  }
+  .bg-blob-3 {
+    bottom: -15%;
+    left: 25%;
+    width: 50%;
+    height: 60%;
+    background: radial-gradient(
+      circle at center,
+      rgba(120, 10, 30, 0.45) 0%,
+      transparent 65%
+    );
+    animation: drift-3 22s ease-in-out infinite alternate;
+  }
+
+  @keyframes drift-1 {
+    0%   { transform: translate(0, 0) scale(1); }
+    100% { transform: translate(80px, 50px) scale(1.18); }
+  }
+  @keyframes drift-2 {
+    0%   { transform: translate(0, 0) scale(1); }
+    100% { transform: translate(-70px, -40px) scale(1.2); }
+  }
+  @keyframes drift-3 {
+    0%   { transform: translate(0, 0) scale(1); }
+    100% { transform: translate(-40px, -60px) scale(1.12); }
+  }
+
+  .hero-overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    background-color: rgba(0, 0, 0, 0.4);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .bg-blob { animation: none; }
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 1;
+    max-width: 1000px;
+  }
+
+  .hero-title {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: clamp(56px, 9vw, 96px);
+    line-height: 0.9;
+    letter-spacing: -0.02em;
+    color: var(--vihRed);
+    margin-bottom: 1.5rem;
+  }
+
+  .hero-meta {
+    font-family: var(--font-body);
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.25em;
+    color: rgba(255, 255, 255, 0.6);
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.7);
+  }
+
+  /* ---------- Evento ---------- */
+  .event {
+    background-color: var(--color-bg);
+    padding: 4rem 0;
+  }
+  @media (min-width: 768px) {
+    .event { padding: 6rem 0; }
+  }
+
+  .event-content {
+    max-width: 720px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .event-eyebrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.85rem;
+    font-family: var(--font-display);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.3em;
+    font-size: 14px;
+    color: var(--vihRed);
+    margin-bottom: 1.5rem;
+  }
+  .event-eyebrow-rule {
+    display: inline-block;
+    width: 32px;
+    height: 1px;
+    background-color: var(--vihRed);
+    opacity: 0.8;
+  }
+
+  .event-title {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: clamp(36px, 4.5vw, 48px);
+    line-height: 1.05;
+    color: var(--color-white);
+    letter-spacing: -0.02em;
+    margin-bottom: 2.5rem;
+  }
+
+  .event-text {
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    margin-bottom: 3rem;
+  }
+  .event-text p {
+    font-family: var(--font-body);
+    font-size: 1.05rem;
+    line-height: 1.7;
+    color: var(--color-muted);
+  }
+
+  .event-quote {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-weight: 600;
+    font-size: clamp(24px, 3.2vw, 32px);
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+    color: var(--vihRed);
+    max-width: 600px;
+    margin-top: 1rem;
+  }
+
+  /* ---------- Galería ---------- */
+  .gallery {
+    background-color: var(--color-bg);
+  }
+  .gallery-top {
+    padding-top: 0;
+    padding-bottom: 16px;
+  }
+  .gallery-bottom {
+    padding-top: 6px;
+    padding-bottom: 6rem;
+  }
+
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 6px;
+  }
+  @media (max-width: 640px) {
+    .gallery-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  .gallery-item {
+    display: block;
+    width: 100%;
+    height: 240px;
+    padding: 0;
+    border: 0;
+    background: var(--color-surface);
+    overflow: hidden;
+    cursor: pointer;
+  }
+  @media (min-width: 768px) {
+    .gallery-item { height: 380px; }
+  }
+
+  .gallery-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .gallery-empty {
+    background-color: var(--color-bg);
+    padding: 3rem 0 6rem;
+  }
+  .empty-message {
+    text-align: center;
+    color: var(--color-muted);
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    padding: 3rem 0;
+    border-top: 1px solid var(--color-border);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  /* ---------- CTA ---------- */
+  .cta {
+    background-color: #000;
+    padding: 4.5rem 0;
+  }
+  @media (min-width: 768px) {
+    .cta { padding: 6rem 0; }
+  }
+
+  .cta-content {
+    text-align: center;
+    max-width: 720px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .cta-eyebrow {
+    font-family: var(--font-body);
+    text-transform: uppercase;
+    letter-spacing: 0.25em;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--vihRed);
+    margin-bottom: 1.25rem;
+  }
+
+  .cta-title {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: clamp(36px, 5vw, 48px);
+    line-height: 1.05;
+    color: var(--color-white);
+    letter-spacing: -0.02em;
+    margin-bottom: 1.25rem;
+  }
+
+  .cta-text {
+    font-family: var(--font-body);
+    font-size: 1.05rem;
+    color: var(--color-muted);
+    margin-bottom: 2.25rem;
+  }
+
+  .cta-button {
+    display: inline-block;
+    background: transparent;
+    color: var(--color-white);
+    border: 1px solid var(--color-white);
+    padding: 14px 28px;
+    border-radius: 4px;
+    font-family: var(--font-body);
+    font-weight: 600;
+    font-size: 1rem;
+    transition: background-color var(--transition);
+  }
+  .cta-button:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+
+  /* ---------- Lightbox ---------- */
+  .lightbox {
+    width: 100vw;
+    height: 100vh;
+    max-width: 100vw;
+    max-height: 100vh;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background: rgba(0, 0, 0, 0.98);
+    color: var(--color-white);
+    inset: 0;
+  }
+  .lightbox::backdrop {
+    background: rgba(0, 0, 0, 0.98);
+  }
+  .lightbox[open] {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .lightbox-img {
+    max-width: 95vw;
+    max-height: 95vh;
+    object-fit: contain;
+    display: block;
+  }
+
+  .lightbox-close,
+  .lightbox-prev,
+  .lightbox-next {
+    position: absolute;
+    background: transparent;
+    border: 0;
+    color: var(--color-white);
+    cursor: pointer;
+    padding: 0.5rem;
+    line-height: 1;
+    transition: opacity var(--transition);
+  }
+  .lightbox-close:hover,
+  .lightbox-prev:hover,
+  .lightbox-next:hover {
+    opacity: 0.7;
+  }
+  .lightbox-close {
+    top: 1.25rem;
+    right: 1.25rem;
+    font-size: 2rem;
+  }
+  .lightbox-prev,
+  .lightbox-next {
+    top: 50%;
+    transform: translateY(-50%);
+  }
+  .lightbox-prev { left: 1.25rem; }
+  .lightbox-next { right: 1.25rem; }
+
+  @media (max-width: 768px) {
+    .lightbox-prev,
+    .lightbox-next { display: none; }
+  }
+</style>
+
+<script>
+  const lightbox = document.getElementById('lightbox');
+  if (lightbox) {
+    const lbImg = lightbox.querySelector('.lightbox-img');
+    const closeBtn = lightbox.querySelector('.lightbox-close');
+    const prevBtn = lightbox.querySelector('.lightbox-prev');
+    const nextBtn = lightbox.querySelector('.lightbox-next');
+    const items = Array.from(document.querySelectorAll('.gallery-item'));
+    const sources = items.map((b) => b.querySelector('img').src);
+    const alts = items.map((b) => b.querySelector('img').alt);
+    let idx = 0;
+
+    const render = () => {
+      lbImg.src = sources[idx];
+      lbImg.alt = alts[idx];
+    };
+    const open = (i) => { idx = i; render(); lightbox.showModal(); };
+    const close = () => lightbox.close();
+    const prev = () => { idx = (idx - 1 + sources.length) % sources.length; render(); };
+    const next = () => { idx = (idx + 1) % sources.length; render(); };
+
+    items.forEach((btn, i) => btn.addEventListener('click', () => open(i)));
+    closeBtn.addEventListener('click', close);
+    prevBtn.addEventListener('click', prev);
+    nextBtn.addEventListener('click', next);
+
+    lightbox.addEventListener('click', (e) => {
+      if (e.target === lightbox) close();
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (!lightbox.open) return;
+      if (e.key === 'ArrowLeft') prev();
+      if (e.key === 'ArrowRight') next();
+    });
+
+    let touchStartX = 0;
+    lightbox.addEventListener(
+      'touchstart',
+      (e) => { touchStartX = e.changedTouches[0].screenX; },
+      { passive: true }
+    );
+    lightbox.addEventListener('touchend', (e) => {
+      const dx = e.changedTouches[0].screenX - touchStartX;
+      if (Math.abs(dx) > 50) {
+        if (dx > 0) prev();
+        else next();
+      }
+    });
+  }
+</script>

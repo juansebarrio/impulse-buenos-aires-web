@@ -5,3 +5,6 @@ dist
 .claude
 .vercel
 .DS_Store
+
+# Video pesado — se sirve aparte (ver README)
+public/images/arte/legislatura_vid.mp4
