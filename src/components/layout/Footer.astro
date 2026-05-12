@@ -87,8 +87,17 @@ const instagramURL = 'https://www.instagram.com/impulsebsas';
       </div>
     </div>
 
-    <div class="border-t border-border mt-12 pt-6 text-center text-sm text-muted">
-      © 2026 Impulse Buenos Aires. Todos los derechos reservados.
+    <div class="footer-bottom">
+      <p>© 2026 Impulse Buenos Aires. Todos los derechos reservados.</p>
+      <p>
+        Diseñado y desarrollado por
+        <a
+          href="https://www.js80.studio"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="js80-link"
+        >JS80</a>
+      </p>
     </div>
   </div>
 </footer>
@@ -127,5 +136,35 @@ const instagramURL = 'https://www.instagram.com/impulsebsas';
   .footer-social:hover {
     color: var(--color-accent);
     border-color: var(--color-accent);
+  }
+
+  .footer-bottom {
+    margin-top: 3rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--color-border);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    text-align: center;
+    font-size: 0.85rem;
+    color: var(--color-muted);
+  }
+  @media (min-width: 768px) {
+    .footer-bottom {
+      flex-direction: row;
+      justify-content: space-between;
+      text-align: left;
+      gap: 1.5rem;
+    }
+  }
+
+  .js80-link {
+    color: var(--color-text);
+    transition: color var(--transition);
+    font-weight: 600;
+  }
+  .js80-link:hover {
+    color: var(--color-accent);
   }
 </style>
