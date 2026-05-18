@@ -7,6 +7,7 @@ const projects = [
     description:
       'Equipos, torneos y prácticas que arman comunidad en cancha. El deporte como espacio donde la diversidad se entrena y se celebra.',
     meta: 'Buenos Aires · Todo el año',
+    href: '/deporte',
   },
   {
     image: '/images/arte/IMG_7124.JPG',
@@ -47,19 +48,29 @@ const gallery = [
   </div>
 
   {
-    projects.map((p) => (
-      <article class="card" style={`background-image: url('${p.image}');`}>
-        <div class="card-overlay" />
-        <div class="container card-container">
-          <div class="card-content">
-            <span class="tag">{p.tag}</span>
-            <h3 class="card-title">{p.title}</h3>
-            <p class="card-description">{p.description}</p>
-            <p class="card-meta">{p.meta}</p>
+    projects.map((p) => {
+      const Tag = p.href ? 'a' : 'article';
+      return (
+        <Tag
+          class:list={['card', { 'card-link': p.href }]}
+          style={`background-image: url('${p.image}');`}
+          {...(p.href ? { href: p.href } : {})}
+        >
+          <div class="card-overlay" />
+          <div class="container card-container">
+            <div class="card-content">
+              <span class="tag">{p.tag}</span>
+              <h3 class="card-title">{p.title}</h3>
+              <p class="card-description">{p.description}</p>
+              <p class="card-meta">{p.meta}</p>
+              {p.href && (
+                <span class="card-cta" aria-hidden="true">Ver proyecto →</span>
+              )}
+            </div>
           </div>
-        </div>
-      </article>
-    ))
+        </Tag>
+      );
+    })
   }
 
   <div class="container">
@@ -199,6 +210,32 @@ const gallery = [
     color: rgba(255, 255, 255, 0.7);
     text-transform: uppercase;
     letter-spacing: 0.1em;
+  }
+
+  a.card-link {
+    color: inherit;
+    text-decoration: none;
+    transition: background-size var(--transition);
+  }
+  a.card-link .card-cta {
+    display: inline-block;
+    margin-top: 1.25rem;
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--color-white);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+    padding-bottom: 2px;
+    transition: color var(--transition), border-color var(--transition);
+  }
+  a.card-link:hover .card-cta,
+  a.card-link:focus-visible .card-cta {
+    color: var(--color-accent);
+    border-bottom-color: var(--color-accent);
+  }
+  a.card-link:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: -2px;
   }
 
   /* ---------- Galería del Summit ---------- */
