@@ -8,4 +8,12 @@ export default defineConfig({
   image: {
     service: { entrypoint: 'astro/assets/services/sharp' },
   },
+  server: { host: true, port: 4321 },
+  vite: {
+    server: {
+      host: true,
+      allowedHosts: true,
+      hmr: { clientPort: 443 },
+    },
+  },
 });
