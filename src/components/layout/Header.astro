@@ -87,64 +87,64 @@ const sumarteURL = 'https://forms.office.com/Pages/ResponsePage.aspx?id=BwTI_Rcv
       <span class="hamburger-line"></span>
     </button>
   </div>
-
-  <div
-    id="mobile-menu"
-    class="fixed inset-x-0 bottom-0 top-20 bg-bg z-40 hidden md:hidden overflow-y-auto"
-  >
-    <nav class="container py-10 flex flex-col gap-7 font-display text-3xl">
-      <div>
-        <button
-          id="projects-accordion"
-          type="button"
-          class:list={['nav-link-mobile w-full flex items-center justify-between', { active: projectsActive }]}
-          aria-expanded="false"
-          aria-controls="projects-submenu"
-        >
-          Proyectos
-          <svg
-            class="w-5 h-5 transition-transform duration-200"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2.5"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            aria-hidden="true"
-          >
-            <polyline points="6 9 12 15 18 9" />
-          </svg>
-        </button>
-        <ul
-          id="projects-submenu"
-          class="hidden flex-col gap-4 pl-5 mt-4 text-2xl"
-        >
-          {
-            projectLinks.map((link) => (
-              <li>
-                <a
-                  href={link.href}
-                  class:list={['nav-link-mobile', { active: isActive(link.href) }]}
-                >
-                  {link.label}
-                </a>
-              </li>
-            ))
-          }
-        </ul>
-      </div>
-
-      <a
-        href={sumarteURL}
-        target="_blank"
-        rel="noopener noreferrer"
-        class="nav-link-mobile"
-      >
-        Sumarte
-      </a>
-    </nav>
-  </div>
 </header>
+
+<div
+  id="mobile-menu"
+  class="fixed inset-x-0 bottom-0 top-20 bg-bg z-40 hidden md:hidden overflow-y-auto"
+>
+  <nav class="container py-10 flex flex-col gap-7 font-display text-3xl">
+    <div>
+      <button
+        id="projects-accordion"
+        type="button"
+        class:list={['nav-link-mobile w-full flex items-center justify-between', { active: projectsActive }]}
+        aria-expanded="false"
+        aria-controls="projects-submenu"
+      >
+        Proyectos
+        <svg
+          class="w-5 h-5 transition-transform duration-200"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+        >
+          <polyline points="6 9 12 15 18 9" />
+        </svg>
+      </button>
+      <ul
+        id="projects-submenu"
+        class="hidden flex-col gap-4 pl-5 mt-4 text-2xl"
+      >
+        {
+          projectLinks.map((link) => (
+            <li>
+              <a
+                href={link.href}
+                class:list={['nav-link-mobile', { active: isActive(link.href) }]}
+              >
+                {link.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+
+    <a
+      href={sumarteURL}
+      target="_blank"
+      rel="noopener noreferrer"
+      class="nav-link-mobile"
+    >
+      Sumarte
+    </a>
+  </nav>
+</div>
 
 <style>
   #site-header {
