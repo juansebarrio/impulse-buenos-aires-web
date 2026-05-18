@@ -29,6 +29,18 @@ const topics = [
   'Cómo sumarte como voluntarie',
   'Activaciones, marchas y eventos',
 ];
+
+const summitVideos = [
+  {
+    id: '1191384342',
+    title: 'Presentación del proyecto en Summit Latinoamericano — parte 1',
+  },
+  {
+    id: '1193265857',
+    title: 'Presentación del proyecto en Summit Latinoamericano — parte 2',
+  },
+];
+const vimeoFlags = 'autoplay=0&loop=0&byline=0&title=0&portrait=0&dnt=1';
 ---
 
 <BaseLayout title="Chatbot de voz" description={description}>
@@ -96,6 +108,30 @@ const topics = [
         El asistente no reemplaza un diagnóstico ni una consulta médica.
         Para temas urgentes, escribinos directamente.
       </p>
+    </div>
+  </section>
+
+  <!-- Videos Summit -->
+  <section class="summit-videos">
+    <div class="container">
+      <p class="section-eyebrow summit-eyebrow">
+        Presentación del proyecto en Summit Latinoamericano
+      </p>
+      <div class="summit-grid">
+        {
+          summitVideos.map((v) => (
+            <div class="summit-frame">
+              <iframe
+                src={`https://player.vimeo.com/video/${v.id}?${vimeoFlags}`}
+                title={v.title}
+                allow="autoplay; fullscreen; picture-in-picture; clipboard-write"
+                allowfullscreen
+                loading="lazy"
+              />
+            </div>
+          ))
+        }
+      </div>
     </div>
   </section>
 
@@ -392,6 +428,60 @@ const topics = [
     line-height: 1.6;
     padding-top: 1.5rem;
     border-top: 1px solid var(--color-border);
+  }
+
+  /* ---------- Summit videos ---------- */
+  .summit-videos {
+    background-color: var(--color-bg);
+    padding: 4rem 0 6rem;
+  }
+  @media (min-width: 768px) {
+    .summit-videos { padding: 6rem 0 8rem; }
+  }
+
+  .summit-eyebrow {
+    text-align: center;
+    margin-bottom: 2.5rem;
+  }
+
+  .summit-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    justify-items: center;
+    max-width: 820px;
+    margin: 0 auto;
+  }
+  @media (min-width: 640px) {
+    .summit-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+    }
+  }
+  @media (min-width: 1024px) {
+    .summit-grid {
+      gap: 2rem;
+    }
+  }
+
+  .summit-frame {
+    position: relative;
+    width: 100%;
+    max-width: 360px;
+    aspect-ratio: 9 / 16;
+    background: #000;
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.45);
+  }
+
+  .summit-frame iframe {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+    display: block;
   }
 
   @media (prefers-reduced-motion: reduce) {
