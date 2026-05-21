@@ -4,21 +4,23 @@ import BaseLayout from '../components/layout/BaseLayout.astro';
 const description =
   'Asistente conversacional de voz de Impulse Buenos Aires. Resolvé dudas sobre salud sexual, prevención del VIH y cómo trabaja la ONG.';
 
+const AGENT_ID = 'agent_0301krck1rt5e1f9572sq07dnj36';
+
 const steps = [
   {
     num: '01',
-    title: 'Tocá el botón',
-    text: 'Vas a ver un botón flotante abajo a la derecha. Tocalo para abrir la conversación.',
+    title: 'Tocá el orbe',
+    text: 'Un toque y arranca. Sin formularios, sin esperas. El navegador te va a pedir acceso al micrófono.',
   },
   {
     num: '02',
-    title: 'Permití el micrófono',
-    text: 'El navegador te va a pedir acceso. Sin micro no podés hablar — pero también podés escribir si preferís.',
+    title: 'Hablá natural',
+    text: 'Como hablás con cualquier persona. El orbe escucha y responde en tiempo real, con voz.',
   },
   {
     num: '03',
-    title: 'Preguntá natural',
-    text: 'Hablale como hablás con cualquier persona. Está entrenado para responder sobre salud sexual y el trabajo de Impulse.',
+    title: 'Terminá cuando quieras',
+    text: 'Tocás el orbe otra vez y se corta. Sin historial guardado, sin cuenta, sin rastros.',
   },
 ];
 
@@ -44,107 +46,271 @@ const vimeoFlags = 'autoplay=0&loop=0&byline=0&title=0&portrait=0&dnt=1';
 ---
 
 <BaseLayout title="Chatbot de voz" description={description}>
-  <!-- Hero -->
-  <section class="hero">
-    <div class="hero-bg" aria-hidden="true">
-      <div class="bg-blob bg-blob-left"></div>
-      <div class="bg-blob bg-blob-right"></div>
-    </div>
-
-    <div class="container hero-content">
-      <div class="orb" aria-hidden="true">
-        <div class="orb-glow"></div>
-        <div class="orb-core"></div>
-        <div class="orb-shimmer"></div>
+  <div class="chatbot-page" data-state="idle" data-agent-id={AGENT_ID}>
+    <!-- Hero -->
+    <section class="hero">
+      <div class="hero-bg" aria-hidden="true">
+        <div class="bg-blob bg-blob-left"></div>
+        <div class="bg-blob bg-blob-right"></div>
+        <div class="bg-blob bg-blob-bottom"></div>
       </div>
 
-      <p class="eyebrow">Asistente conversacional</p>
-      <h1 class="hero-title">Hablá con Impulse.</h1>
-      <p class="hero-subtitle">
-        Un asistente con voz para resolver tus dudas sobre salud sexual,
-        prevención del VIH y cómo trabaja Impulse Buenos Aires. Sin filas,
-        sin turnos, sin filtros.
-      </p>
-    </div>
-  </section>
+      <div class="container hero-content">
+        <button
+          type="button"
+          class="orb"
+          id="impulse-orb"
+          aria-label="Iniciar conversación de voz con Impulse"
+          aria-pressed="false"
+        >
+          <span class="orb-glow" aria-hidden="true"></span>
+          <span class="orb-core" aria-hidden="true"></span>
+          <span class="orb-shimmer" aria-hidden="true"></span>
+          <span class="orb-ring orb-ring-1" aria-hidden="true"></span>
+          <span class="orb-ring orb-ring-2" aria-hidden="true"></span>
+          <span class="orb-ring orb-ring-3" aria-hidden="true"></span>
+          <span class="orb-spinner" aria-hidden="true">
+            <svg viewBox="0 0 50 50" width="32" height="32">
+              <circle cx="25" cy="25" r="20" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-dasharray="90 30"></circle>
+            </svg>
+          </span>
+        </button>
 
-  <!-- Cómo usarlo -->
-  <section class="how">
-    <div class="container">
-      <p class="section-eyebrow">Cómo funciona</p>
-      <div class="how-grid">
-        {
-          steps.map((s) => (
-            <article class="step">
-              <span class="step-num">{s.num}</span>
-              <h3 class="step-title">{s.title}</h3>
-              <p class="step-text">{s.text}</p>
-            </article>
-          ))
-        }
+        <p class="eyebrow" data-text-idle="Asistente conversacional"
+                         data-text-connecting="Conectando…"
+                         data-text-listening="Te escucho"
+                         data-text-speaking="Hablando"
+                         data-text-error="No pude conectar">
+          Asistente conversacional
+        </p>
+        <h1 class="hero-title">Hablá con Impulse.</h1>
+        <p class="hero-subtitle">
+          Tocá el orbe y empezá a hablar. Un asistente con voz para resolver
+          tus dudas sobre salud sexual, prevención del VIH y cómo trabaja
+          Impulse Buenos Aires.
+        </p>
+
+        <p class="hero-hint" id="orb-hint">Tocá el orbe para empezar</p>
+
+        <button type="button" class="end-button" id="impulse-end" aria-label="Terminar conversación">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" aria-hidden="true">
+            <line x1="6" y1="6" x2="18" y2="18" />
+            <line x1="6" y1="18" x2="18" y2="6" />
+          </svg>
+          Terminar conversación
+        </button>
+
+        <p class="hero-error" id="orb-error" role="alert"></p>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- De qué podés preguntar -->
-  <section class="topics">
-    <div class="container topics-container">
-      <p class="section-eyebrow">Sobre qué podés preguntar</p>
-      <ul class="topics-list">
-        {
-          topics.map((t) => (
-            <li class="topic">
-              <span class="topic-bullet" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="14" height="14">
-                  <polyline points="20 6 9 17 4 12" />
-                </svg>
-              </span>
-              <span>{t}</span>
-            </li>
-          ))
-        }
-      </ul>
-      <p class="disclaimer">
-        El asistente no reemplaza un diagnóstico ni una consulta médica.
-        Para temas urgentes, escribinos directamente.
-      </p>
-    </div>
-  </section>
+    <!-- Secciones que se atenúan cuando hablás -->
+    <div class="below-fold">
+      <!-- Cómo funciona -->
+      <section class="how">
+        <div class="container">
+          <p class="section-eyebrow">Cómo funciona</p>
+          <div class="how-grid">
+            {
+              steps.map((s) => (
+                <article class="step">
+                  <span class="step-num">{s.num}</span>
+                  <h3 class="step-title">{s.title}</h3>
+                  <p class="step-text">{s.text}</p>
+                </article>
+              ))
+            }
+          </div>
+        </div>
+      </section>
 
-  <!-- Videos Summit -->
-  <section class="summit-videos">
-    <div class="container">
-      <p class="section-eyebrow summit-eyebrow">
-        Presentación del proyecto en Summit Latinoamericano
-      </p>
-      <div class="summit-grid">
-        {
-          summitVideos.map((v) => (
-            <div class="summit-frame">
-              <iframe
-                src={`https://player.vimeo.com/video/${v.id}?${vimeoFlags}`}
-                title={v.title}
-                allow="autoplay; fullscreen; picture-in-picture; clipboard-write"
-                allowfullscreen
-                loading="lazy"
-              />
-            </div>
-          ))
-        }
-      </div>
-    </div>
-  </section>
+      <!-- De qué podés preguntar -->
+      <section class="topics">
+        <div class="container topics-container">
+          <p class="section-eyebrow">Sobre qué podés preguntar</p>
+          <ul class="topics-list">
+            {
+              topics.map((t) => (
+                <li class="topic">
+                  <span class="topic-bullet" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="14" height="14">
+                      <polyline points="20 6 9 17 4 12" />
+                    </svg>
+                  </span>
+                  <span>{t}</span>
+                </li>
+              ))
+            }
+          </ul>
+          <p class="disclaimer">
+            El asistente no reemplaza un diagnóstico ni una consulta médica.
+            Para temas urgentes, escribinos directamente.
+          </p>
+        </div>
+      </section>
 
-  <!-- Widget de ElevenLabs -->
-  <elevenlabs-convai agent-id="agent_0301krck1rt5e1f9572sq07dnj36"></elevenlabs-convai>
-  <script
-    src="https://unpkg.com/@elevenlabs/convai-widget-embed"
-    async
-    type="text/javascript"
-    is:inline></script>
+      <!-- Videos Summit -->
+      <section class="summit-videos">
+        <div class="container">
+          <p class="section-eyebrow summit-eyebrow">
+            Presentación del proyecto en Summit Latinoamericano
+          </p>
+          <div class="summit-grid">
+            {
+              summitVideos.map((v) => (
+                <div class="summit-frame">
+                  <iframe
+                    src={`https://player.vimeo.com/video/${v.id}?${vimeoFlags}`}
+                    title={v.title}
+                    allow="autoplay; fullscreen; picture-in-picture; clipboard-write"
+                    allowfullscreen
+                    loading="lazy"
+                  />
+                </div>
+              ))
+            }
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
 </BaseLayout>
 
+<script>
+  import { Conversation } from '@elevenlabs/client';
+
+  type ConversationInstance = Awaited<ReturnType<typeof Conversation.startSession>>;
+
+  const root = document.querySelector<HTMLElement>('.chatbot-page');
+  const orb = document.getElementById('impulse-orb') as HTMLButtonElement | null;
+  const endBtn = document.getElementById('impulse-end') as HTMLButtonElement | null;
+  const eyebrow = document.querySelector<HTMLElement>('.hero .eyebrow');
+  const hint = document.getElementById('orb-hint');
+  const errorEl = document.getElementById('orb-error');
+
+  if (root && orb) {
+    const agentId = root.dataset.agentId!;
+    let conversation: ConversationInstance | null = null;
+    let busy = false;
+
+    type UIState = 'idle' | 'connecting' | 'listening' | 'speaking' | 'error';
+
+    const setState = (state: UIState, errorMessage?: string) => {
+      root.dataset.state = state;
+      orb.dataset.state = state;
+      orb.setAttribute('aria-pressed', state === 'listening' || state === 'speaking' ? 'true' : 'false');
+
+      if (eyebrow) {
+        const text = eyebrow.dataset[`text${state.charAt(0).toUpperCase()}${state.slice(1)}` as keyof DOMStringMap];
+        if (text) eyebrow.textContent = text;
+      }
+
+      if (hint) {
+        if (state === 'idle') hint.textContent = 'Tocá el orbe para empezar';
+        else if (state === 'connecting') hint.textContent = 'Pidiendo permiso al micrófono…';
+        else if (state === 'listening') hint.textContent = 'Hablá tranquilo, te estoy escuchando';
+        else if (state === 'speaking') hint.textContent = 'Podés interrumpirme cuando quieras';
+        else if (state === 'error') hint.textContent = '';
+      }
+
+      if (errorEl) {
+        errorEl.textContent = state === 'error' && errorMessage ? errorMessage : '';
+      }
+    };
+
+    const stop = async () => {
+      if (!conversation || busy) return;
+      busy = true;
+      try {
+        await conversation.endSession();
+      } catch (err) {
+        console.error('[impulse-orb] endSession error', err);
+      } finally {
+        conversation = null;
+        busy = false;
+        setState('idle');
+      }
+    };
+
+    const start = async () => {
+      if (busy) return;
+      busy = true;
+      setState('connecting');
+
+      try {
+        await navigator.mediaDevices.getUserMedia({ audio: true });
+      } catch (err) {
+        console.error('[impulse-orb] mic permission denied', err);
+        setState('error', 'Necesitamos acceso al micrófono para hablar. Habilitalo en el navegador y probá de nuevo.');
+        busy = false;
+        return;
+      }
+
+      try {
+        conversation = await Conversation.startSession({
+          agentId,
+          onConnect: () => setState('listening'),
+          onDisconnect: () => {
+            conversation = null;
+            setState('idle');
+          },
+          onError: (message) => {
+            console.error('[impulse-orb] conversation error', message);
+            conversation = null;
+            setState('error', 'Hubo un problema con la conexión. Probá de nuevo en un momento.');
+          },
+          onModeChange: ({ mode }) => {
+            setState(mode === 'speaking' ? 'speaking' : 'listening');
+          },
+        });
+      } catch (err) {
+        console.error('[impulse-orb] startSession error', err);
+        conversation = null;
+        setState('error', 'No pudimos iniciar la conversación. Probá de nuevo en un momento.');
+      } finally {
+        busy = false;
+      }
+    };
+
+    orb.addEventListener('click', () => {
+      const state = root.dataset.state;
+      if (state === 'listening' || state === 'speaking') {
+        stop();
+      } else {
+        start();
+      }
+    });
+
+    endBtn?.addEventListener('click', stop);
+
+    window.addEventListener('beforeunload', () => {
+      if (conversation) conversation.endSession().catch(() => {});
+    });
+  }
+</script>
+
 <style>
+  /* ---------- Page-level immersive states ---------- */
+  .chatbot-page {
+    --orb-accent-a: rgba(0, 102, 255, 1);
+    --orb-accent-b: rgba(150, 60, 220, 1);
+  }
+
+  .below-fold {
+    transition: opacity 600ms ease, transform 600ms ease, filter 600ms ease;
+  }
+
+  /* Cuando hay conversación, el hero se vuelve full-viewport y el resto se va */
+  .chatbot-page[data-state='listening'] .below-fold,
+  .chatbot-page[data-state='speaking'] .below-fold,
+  .chatbot-page[data-state='connecting'] .below-fold {
+    opacity: 0;
+    transform: translateY(20px);
+    filter: blur(4px);
+    pointer-events: none;
+    user-select: none;
+  }
+
   /* ---------- Hero ---------- */
   .hero {
     position: relative;
@@ -157,6 +323,7 @@ const vimeoFlags = 'autoplay=0&loop=0&byline=0&title=0&portrait=0&dnt=1';
     justify-content: center;
     overflow: hidden;
     isolation: isolate;
+    transition: min-height 600ms ease, padding 600ms ease;
   }
   @media (min-width: 768px) {
     .hero {
@@ -164,17 +331,26 @@ const vimeoFlags = 'autoplay=0&loop=0&byline=0&title=0&portrait=0&dnt=1';
     }
   }
 
+  .chatbot-page[data-state='listening'] .hero,
+  .chatbot-page[data-state='speaking'] .hero,
+  .chatbot-page[data-state='connecting'] .hero {
+    min-height: 100vh;
+    padding: 6rem 1rem 4rem;
+  }
+
   .hero-bg {
     position: absolute;
     inset: 0;
     z-index: 0;
     pointer-events: none;
+    transition: opacity 600ms ease;
   }
 
   .bg-blob {
     position: absolute;
     filter: blur(110px);
     will-change: transform;
+    transition: opacity 800ms ease;
   }
   .bg-blob-left {
     top: 10%;
@@ -192,6 +368,23 @@ const vimeoFlags = 'autoplay=0&loop=0&byline=0&title=0&portrait=0&dnt=1';
     background: radial-gradient(circle at center, rgba(150, 60, 220, 0.5) 0%, transparent 65%);
     animation: drift-right 18s ease-in-out infinite alternate;
   }
+  .bg-blob-bottom {
+    bottom: -20%;
+    left: 30%;
+    width: 40%;
+    height: 60%;
+    background: radial-gradient(circle at center, rgba(200, 50, 130, 0.35) 0%, transparent 70%);
+    animation: drift-bottom 22s ease-in-out infinite alternate;
+    opacity: 0;
+  }
+  .chatbot-page[data-state='listening'] .bg-blob-bottom,
+  .chatbot-page[data-state='speaking'] .bg-blob-bottom {
+    opacity: 1;
+  }
+  .chatbot-page[data-state='speaking'] .bg-blob-left,
+  .chatbot-page[data-state='speaking'] .bg-blob-right {
+    animation-duration: 7s, 9s;
+  }
 
   @keyframes drift-left {
     0%   { transform: translate(0, 0) scale(1); }
@@ -200,6 +393,10 @@ const vimeoFlags = 'autoplay=0&loop=0&byline=0&title=0&portrait=0&dnt=1';
   @keyframes drift-right {
     0%   { transform: translate(0, 0) scale(1); }
     100% { transform: translate(-50px, -30px) scale(1.18); }
+  }
+  @keyframes drift-bottom {
+    0%   { transform: translate(0, 0) scale(1); }
+    100% { transform: translate(-30px, -50px) scale(1.1); }
   }
 
   .hero-content {
@@ -212,16 +409,55 @@ const vimeoFlags = 'autoplay=0&loop=0&byline=0&title=0&portrait=0&dnt=1';
     max-width: 720px;
   }
 
-  /* ---------- Orbe (mismo del home) ---------- */
+  /* ---------- Orbe ---------- */
   .orb {
     position: relative;
-    width: 180px;
-    height: 180px;
+    width: 200px;
+    height: 200px;
     margin-bottom: 2.75rem;
+    border: none;
+    background: transparent;
+    padding: 0;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+                width 600ms cubic-bezier(0.16, 1, 0.3, 1),
+                height 600ms cubic-bezier(0.16, 1, 0.3, 1);
     display: flex;
     align-items: center;
     justify-content: center;
   }
+  @media (min-width: 768px) {
+    .orb { width: 220px; height: 220px; }
+  }
+  .orb:hover { transform: scale(1.06); }
+  .orb:active { transform: scale(0.97); transition-duration: 0.1s; }
+
+  .chatbot-page[data-state='listening'] .orb,
+  .chatbot-page[data-state='speaking'] .orb {
+    width: 260px;
+    height: 260px;
+  }
+  @media (min-width: 768px) {
+    .chatbot-page[data-state='listening'] .orb,
+    .chatbot-page[data-state='speaking'] .orb {
+      width: 320px;
+      height: 320px;
+    }
+  }
+
+  .orb:focus-visible {
+    outline: none;
+  }
+  .orb:focus-visible .orb-core {
+    box-shadow:
+      0 0 0 3px rgba(180, 200, 255, 0.5),
+      0 0 80px rgba(0, 102, 255, 0.55),
+      0 0 160px rgba(150, 60, 220, 0.3),
+      inset -10px -20px 40px rgba(0, 0, 0, 0.55),
+      inset 8px 12px 24px rgba(220, 235, 255, 0.1);
+  }
+
   .orb-glow {
     position: absolute;
     inset: -40%;
@@ -234,7 +470,9 @@ const vimeoFlags = 'autoplay=0&loop=0&byline=0&title=0&portrait=0&dnt=1';
     );
     animation: orb-pulse 4.5s ease-in-out infinite;
     filter: blur(20px);
+    transition: opacity 400ms ease;
   }
+
   .orb-core {
     position: relative;
     width: 100%;
@@ -250,7 +488,9 @@ const vimeoFlags = 'autoplay=0&loop=0&byline=0&title=0&portrait=0&dnt=1';
       inset -10px -20px 40px rgba(0, 0, 0, 0.55),
       inset 8px 12px 24px rgba(220, 235, 255, 0.1);
     animation: orb-breathe 5s ease-in-out infinite;
+    transition: box-shadow 400ms ease;
   }
+
   .orb-shimmer {
     position: absolute;
     inset: 0;
@@ -268,9 +508,105 @@ const vimeoFlags = 'autoplay=0&loop=0&byline=0&title=0&portrait=0&dnt=1';
     mix-blend-mode: screen;
   }
 
+  /* Anillos reactivos que aparecen en estados activos */
+  .orb-ring {
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    border: 1px solid rgba(180, 200, 255, 0.3);
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  /* Spinner de conexión */
+  .orb-spinner {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgba(220, 235, 255, 0.9);
+    opacity: 0;
+    pointer-events: none;
+    animation: spin 1.2s linear infinite;
+  }
+  .chatbot-page[data-state='connecting'] .orb-spinner {
+    opacity: 1;
+  }
+  .chatbot-page[data-state='connecting'] .orb-core {
+    box-shadow:
+      0 0 60px rgba(0, 102, 255, 0.35),
+      0 0 120px rgba(150, 60, 220, 0.2),
+      inset -10px -20px 40px rgba(0, 0, 0, 0.55),
+      inset 8px 12px 24px rgba(220, 235, 255, 0.1);
+  }
+
+  /* Estado: escuchando — anillos suaves pulsando */
+  .chatbot-page[data-state='listening'] .orb-ring {
+    opacity: 1;
+    animation: ring-pulse 2.6s ease-out infinite;
+    border-color: rgba(120, 180, 255, 0.45);
+  }
+  .chatbot-page[data-state='listening'] .orb-ring-2 { animation-delay: 0.85s; }
+  .chatbot-page[data-state='listening'] .orb-ring-3 { animation-delay: 1.7s; }
+  .chatbot-page[data-state='listening'] .orb-core {
+    animation: orb-breathe 3.4s ease-in-out infinite;
+    box-shadow:
+      0 0 100px rgba(0, 140, 255, 0.65),
+      0 0 200px rgba(0, 102, 255, 0.4),
+      inset -10px -20px 40px rgba(0, 0, 0, 0.55),
+      inset 8px 12px 24px rgba(220, 235, 255, 0.15);
+  }
+  .chatbot-page[data-state='listening'] .orb-glow {
+    animation-duration: 3s;
+  }
+
+  /* Estado: hablando — más intenso, púrpura/magenta */
+  .chatbot-page[data-state='speaking'] .orb-ring {
+    opacity: 1;
+    animation: ring-pulse 1.4s ease-out infinite;
+    border-color: rgba(220, 160, 255, 0.55);
+  }
+  .chatbot-page[data-state='speaking'] .orb-ring-2 { animation-delay: 0.45s; }
+  .chatbot-page[data-state='speaking'] .orb-ring-3 { animation-delay: 0.9s; }
+  .chatbot-page[data-state='speaking'] .orb-core {
+    animation: orb-breathe-fast 1.6s ease-in-out infinite;
+    background:
+      radial-gradient(circle at 32% 28%, rgba(255, 220, 255, 0.95) 0%, rgba(255, 220, 255, 0) 22%),
+      radial-gradient(circle at 70% 78%, rgba(220, 80, 255, 0.7) 0%, transparent 45%),
+      radial-gradient(circle at center, rgba(120, 40, 220, 1) 0%, rgba(20, 8, 50, 1) 75%, #000 100%);
+    box-shadow:
+      0 0 120px rgba(180, 80, 255, 0.7),
+      0 0 240px rgba(220, 60, 200, 0.45),
+      inset -10px -20px 40px rgba(0, 0, 0, 0.55),
+      inset 8px 12px 24px rgba(255, 220, 255, 0.18);
+  }
+  .chatbot-page[data-state='speaking'] .orb-glow {
+    animation-duration: 1.8s;
+    background: radial-gradient(
+      circle at center,
+      rgba(180, 80, 255, 0.45) 0%,
+      rgba(220, 60, 200, 0.2) 35%,
+      transparent 60%
+    );
+  }
+
+  /* Estado: error */
+  .chatbot-page[data-state='error'] .orb-core {
+    box-shadow:
+      0 0 80px rgba(255, 80, 80, 0.45),
+      0 0 160px rgba(220, 60, 60, 0.25),
+      inset -10px -20px 40px rgba(0, 0, 0, 0.55),
+      inset 8px 12px 24px rgba(255, 200, 200, 0.1);
+  }
+
   @keyframes orb-breathe {
     0%, 100% { transform: scale(1); }
     50%      { transform: scale(1.035); }
+  }
+  @keyframes orb-breathe-fast {
+    0%, 100% { transform: scale(1); }
+    50%      { transform: scale(1.08); }
   }
   @keyframes orb-pulse {
     0%, 100% { opacity: 0.7; transform: scale(1); }
@@ -279,7 +615,15 @@ const vimeoFlags = 'autoplay=0&loop=0&byline=0&title=0&portrait=0&dnt=1';
   @keyframes shimmer-rotate {
     to { transform: rotate(360deg); }
   }
+  @keyframes ring-pulse {
+    0%   { transform: scale(1);    opacity: 0.7; }
+    100% { transform: scale(1.55); opacity: 0; }
+  }
+  @keyframes spin {
+    to { transform: rotate(360deg); }
+  }
 
+  /* ---------- Textos del hero ---------- */
   .eyebrow {
     font-family: var(--font-body);
     text-transform: uppercase;
@@ -288,6 +632,13 @@ const vimeoFlags = 'autoplay=0&loop=0&byline=0&title=0&portrait=0&dnt=1';
     font-weight: 600;
     color: rgba(180, 200, 255, 0.85);
     margin-bottom: 1rem;
+    transition: color 400ms ease;
+  }
+  .chatbot-page[data-state='speaking'] .eyebrow {
+    color: rgba(230, 180, 255, 0.95);
+  }
+  .chatbot-page[data-state='error'] .eyebrow {
+    color: rgba(255, 160, 160, 0.95);
   }
 
   .hero-title {
@@ -302,6 +653,7 @@ const vimeoFlags = 'autoplay=0&loop=0&byline=0&title=0&portrait=0&dnt=1';
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
+    transition: opacity 400ms ease, transform 400ms ease;
   }
 
   .hero-subtitle {
@@ -310,9 +662,86 @@ const vimeoFlags = 'autoplay=0&loop=0&byline=0&title=0&portrait=0&dnt=1';
     line-height: 1.6;
     color: rgba(255, 255, 255, 0.75);
     max-width: 560px;
+    transition: opacity 400ms ease, transform 400ms ease;
   }
 
-  /* ---------- Section eyebrow ---------- */
+  /* Cuando arranca la conversación, los textos largos se ocultan suavemente */
+  .chatbot-page[data-state='listening'] .hero-title,
+  .chatbot-page[data-state='listening'] .hero-subtitle,
+  .chatbot-page[data-state='speaking'] .hero-title,
+  .chatbot-page[data-state='speaking'] .hero-subtitle,
+  .chatbot-page[data-state='connecting'] .hero-title,
+  .chatbot-page[data-state='connecting'] .hero-subtitle {
+    opacity: 0;
+    transform: translateY(-10px);
+    pointer-events: none;
+    position: absolute;
+    visibility: hidden;
+  }
+
+  .hero-hint {
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    color: rgba(255, 255, 255, 0.6);
+    margin-top: -0.5rem;
+    margin-bottom: 0;
+    min-height: 1.5em;
+    transition: color 400ms ease;
+  }
+
+  .chatbot-page[data-state='listening'] .hero-hint,
+  .chatbot-page[data-state='speaking'] .hero-hint,
+  .chatbot-page[data-state='connecting'] .hero-hint {
+    margin-top: 0.5rem;
+    font-size: 1.05rem;
+    color: rgba(255, 255, 255, 0.75);
+  }
+
+  .hero-error {
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    color: rgba(255, 160, 160, 0.95);
+    margin-top: 1rem;
+    max-width: 460px;
+    line-height: 1.5;
+    min-height: 0;
+  }
+
+  /* Botón de terminar — solo visible cuando hay conversación activa */
+  .end-button {
+    display: none;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 2rem;
+    background-color: rgba(255, 255, 255, 0.06);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    color: rgba(255, 255, 255, 0.85);
+    padding: 10px 22px;
+    border-radius: 999px;
+    font-family: var(--font-body);
+    font-weight: 500;
+    font-size: 0.85rem;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    cursor: pointer;
+    transition: background-color var(--transition), border-color var(--transition);
+  }
+  .end-button:hover {
+    background-color: rgba(255, 255, 255, 0.12);
+    border-color: rgba(255, 180, 180, 0.5);
+    color: var(--color-white);
+  }
+  .chatbot-page[data-state='listening'] .end-button,
+  .chatbot-page[data-state='speaking'] .end-button {
+    display: inline-flex;
+    animation: fade-in 500ms ease 200ms both;
+  }
+  @keyframes fade-in {
+    from { opacity: 0; transform: translateY(8px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ---------- Secciones de abajo ---------- */
   .section-eyebrow {
     font-family: var(--font-body);
     text-transform: uppercase;
@@ -323,7 +752,6 @@ const vimeoFlags = 'autoplay=0&loop=0&byline=0&title=0&portrait=0&dnt=1';
     margin-bottom: 2.5rem;
   }
 
-  /* ---------- Cómo funciona ---------- */
   .how {
     background-color: var(--color-bg);
     padding: 4rem 0;
@@ -378,7 +806,6 @@ const vimeoFlags = 'autoplay=0&loop=0&byline=0&title=0&portrait=0&dnt=1';
     color: var(--color-muted);
   }
 
-  /* ---------- Topics ---------- */
   .topics {
     background-color: var(--color-surface);
     padding: 4rem 0;
@@ -387,9 +814,7 @@ const vimeoFlags = 'autoplay=0&loop=0&byline=0&title=0&portrait=0&dnt=1';
     .topics { padding: 6rem 0; }
   }
 
-  .topics-container {
-    max-width: 720px;
-  }
+  .topics-container { max-width: 720px; }
 
   .topics-list {
     list-style: none;
@@ -430,7 +855,6 @@ const vimeoFlags = 'autoplay=0&loop=0&byline=0&title=0&portrait=0&dnt=1';
     border-top: 1px solid var(--color-border);
   }
 
-  /* ---------- Summit videos ---------- */
   .summit-videos {
     background-color: var(--color-bg);
     padding: 4rem 0 6rem;
@@ -459,9 +883,7 @@ const vimeoFlags = 'autoplay=0&loop=0&byline=0&title=0&portrait=0&dnt=1';
     }
   }
   @media (min-width: 1024px) {
-    .summit-grid {
-      gap: 2rem;
-    }
+    .summit-grid { gap: 2rem; }
   }
 
   .summit-frame {
@@ -488,8 +910,15 @@ const vimeoFlags = 'autoplay=0&loop=0&byline=0&title=0&portrait=0&dnt=1';
     .bg-blob,
     .orb-core,
     .orb-glow,
-    .orb-shimmer {
-      animation: none;
+    .orb-shimmer,
+    .orb-ring,
+    .orb-spinner,
+    .below-fold,
+    .hero,
+    .hero-title,
+    .hero-subtitle {
+      animation: none !important;
+      transition: none !important;
     }
   }
 </style>
