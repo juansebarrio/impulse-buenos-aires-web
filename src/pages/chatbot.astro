@@ -90,7 +90,7 @@ const vimeoFlags = 'autoplay=0&loop=0&byline=0&title=0&portrait=0&dnt=1';
           Impulse Buenos Aires.
         </p>
 
-        <p class="hero-hint" id="orb-hint">Tocá el orbe para empezar</p>
+        <p class="hero-hint" id="orb-hint" aria-live="polite"></p>
 
         <button type="button" class="end-button" id="impulse-end" aria-label="Terminar conversación">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" aria-hidden="true">
@@ -206,7 +206,7 @@ const vimeoFlags = 'autoplay=0&loop=0&byline=0&title=0&portrait=0&dnt=1';
       }
 
       if (hint) {
-        if (state === 'idle') hint.textContent = 'Tocá el orbe para empezar';
+        if (state === 'idle') hint.textContent = '';
         else if (state === 'connecting') hint.textContent = 'Pidiendo permiso al micrófono…';
         else if (state === 'listening') hint.textContent = 'Hablá tranquilo, te estoy escuchando';
         else if (state === 'speaking') hint.textContent = 'Podés interrumpirme cuando quieras';
@@ -681,20 +681,19 @@ const vimeoFlags = 'autoplay=0&loop=0&byline=0&title=0&portrait=0&dnt=1';
 
   .hero-hint {
     font-family: var(--font-body);
-    font-size: 0.95rem;
-    color: rgba(255, 255, 255, 0.6);
-    margin-top: -0.5rem;
-    margin-bottom: 0;
-    min-height: 1.5em;
-    transition: color 400ms ease;
+    font-size: 1.05rem;
+    color: rgba(255, 255, 255, 0.85);
+    margin-top: 1rem;
+    line-height: 1.5;
+    max-width: 480px;
+    transition: color 400ms ease, opacity 300ms ease;
   }
 
-  .chatbot-page[data-state='listening'] .hero-hint,
-  .chatbot-page[data-state='speaking'] .hero-hint,
-  .chatbot-page[data-state='connecting'] .hero-hint {
-    margin-top: 0.5rem;
-    font-size: 1.05rem;
-    color: rgba(255, 255, 255, 0.75);
+  /* En idle el subtítulo ya cubre la CTA — no mostramos el hint
+     para evitar redundancia y eliminar cualquier riesgo de overlap. */
+  .chatbot-page[data-state='idle'] .hero-hint,
+  .chatbot-page[data-state='error'] .hero-hint {
+    display: none;
   }
 
   .hero-error {
