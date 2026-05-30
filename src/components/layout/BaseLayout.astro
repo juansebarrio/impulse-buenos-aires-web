@@ -37,6 +37,13 @@ const ogImageURL = new URL(ogImage, Astro.site ?? Astro.url).toString();
     <meta property="og:url" content={canonicalURL} />
 
     <meta name="twitter:card" content="summary_large_image" />
+
+    <!-- Privacy-friendly analytics by Plausible -->
+    <script async src="https://plausible.io/js/pa-TMu9prm_UyytzA6jNiPuh.js"></script>
+    <script is:inline>
+      window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}};
+      plausible.init()
+    </script>
   </head>
   <body>
     <Header />
