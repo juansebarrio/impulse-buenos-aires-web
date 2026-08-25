@@ -105,7 +105,7 @@ export const encuentros: Encuentro[] = [
   },
   {
     numero: 3,
-    titulo: 'Salud, territorio y sexualidades',
+    titulo: 'Salud, territorio y salud sexual',
     docenteId: 'sebastian-loinaz',
     fecha: 'Martes 20 de octubre',
     descripcion:
