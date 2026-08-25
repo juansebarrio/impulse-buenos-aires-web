@@ -65,6 +65,10 @@ const sumarteURL = 'https://forms.office.com/Pages/ResponsePage.aspx?id=BwTI_Rcv
         </div>
       </div>
 
+      <a href="/formacion" class:list={['nav-link', { active: isActive('/formacion') }]}>
+        Formación
+      </a>
+
       <a
         href={sumarteURL}
         target="_blank"
@@ -135,6 +139,10 @@ const sumarteURL = 'https://forms.office.com/Pages/ResponsePage.aspx?id=BwTI_Rcv
         }
       </ul>
     </div>
+
+    <a href="/formacion" class:list={['nav-link-mobile', { active: isActive('/formacion') }]}>
+      Formación
+    </a>
 
     <a
       href={sumarteURL}
