@@ -73,7 +73,7 @@ export const encuentros: Encuentro[] = [
     numero: 1,
     titulo: 'Genealogías LGBT+, VIH y activismo',
     docenteId: 'cristian-alberti',
-    fecha: '',
+    fecha: 'Martes 6 de octubre',
     descripcion:
       'Reconstruimos las genealogías de las luchas LGBT+ y de los activismos vinculados al VIH: los procesos históricos que permitieron organizarse, dar respuestas colectivas frente a la epidemia y ampliar derechos. El VIH/sida como acontecimiento social, político y cultural que dejó a la vista los mecanismos de estigma y exclusión, y también la capacidad de las comunidades afectadas para generar cuidado, solidaridad y acción política. A partir del libro de Cristian Alberti, Discursividades víricas, pensamos las disputas de sentido en torno al VIH, el papel de los activismos en la producción de saberes y políticas públicas, y qué herencias nos dejan para los desafíos de hoy.',
     preguntas: [
@@ -90,7 +90,7 @@ export const encuentros: Encuentro[] = [
     numero: 2,
     titulo: 'Sexualidades e interseccionalidad: una crítica radical del mundo social',
     docenteId: 'christian-torno',
-    fecha: '',
+    fecha: 'Martes 13 de octubre',
     descripcion:
       'Las sexualidades y los géneros como construcciones históricas, sociales y políticas: cómo las relaciones de poder producen jerarquías, desigualdades y accesos desiguales a derechos. Desde la interseccionalidad, miramos cómo la clase, la racialización, la migración, la discapacidad, el territorio, el género y la sexualidad atraviesan al mismo tiempo la experiencia de cada persona y configuran posiciones de privilegio o vulnerabilidad. Con aportes de Michel Foucault, Paul B. Preciado, Néstor Perlongher y val flores, entre otrxs, pensamos los dispositivos de regulación (heterosexualidad obligatoria, binarismo de género) y las resistencias que emergen desde las disidencias sexuales como prácticas críticas capaces de imaginar otros modos de convivencia, cuidado y organización.',
     preguntas: [
@@ -107,7 +107,7 @@ export const encuentros: Encuentro[] = [
     numero: 3,
     titulo: 'Salud, territorio y sexualidades',
     docenteId: 'sebastian-loinaz',
-    fecha: '',
+    fecha: 'Martes 20 de octubre',
     descripcion:
       'La salud desde una perspectiva colectiva, comunitaria y situada: los procesos de salud-enfermedad-atención-cuidado están atravesados por las condiciones sociales, económicas, culturales y territoriales en las que vive la gente. Repasamos los determinantes sociales de la salud con foco en las comunidades LGBT+ y actualizamos conceptos de prevención combinada del VIH: diagnóstico, tratamientos antirretrovirales, PrEP, indetectable = intransmisible (I=I) y otras herramientas de cuidado integral, entendiendo que la prevención no depende solo de conductas individuales. Con una actividad de cartografía colectiva, mapeamos los territorios donde se produce salud: la calle, las fiestas, las canchas, los barrios.',
     preguntas: [
@@ -124,7 +124,7 @@ export const encuentros: Encuentro[] = [
     numero: 4,
     titulo: 'Fiesta, sexo, drogas y reducción de daños',
     docenteId: 'dener-hernandez',
-    fecha: '',
+    fecha: 'Martes 27 de octubre',
     descripcion:
       'Sexualidad, placer, consumos de sustancias y prácticas de cuidado desde una perspectiva de derechos, autonomía y reducción de riesgos y daños. Lejos de enfoques moralizantes, reconocemos el placer, el deseo y la búsqueda de bienestar como dimensiones legítimas de la vida sexual y social. Trabajamos herramientas para el cuidado individual y colectivo en contextos festivos y sexuales, el acompañamiento entre pares y la construcción de entornos más seguros. Abordamos el chemsex desde una mirada integral, sin estigmas, y el papel de las organizaciones comunitarias y los equipos territoriales en intervenciones en fiestas y otros espacios de encuentro.',
     preguntas: [
@@ -141,7 +141,7 @@ export const encuentros: Encuentro[] = [
     numero: 5,
     titulo: 'Territorios de acción: deporte, arte, cultura, salud mental y comunidad',
     docenteId: 'ian-levi-mendive',
-    fecha: '',
+    fecha: 'Martes 3 de noviembre',
     descripcion:
       'Encuentro de cierre. Los múltiples espacios donde se construyen vínculos, identidades, cuidados y participación: el deporte, las expresiones artísticas, la cultura, el espacio público y las organizaciones comunitarias como territorios estratégicos para promover derechos, producir salud y construir ciudadanía. Desde la salud mental comunitaria, trabajamos la importancia de los lazos sociales, el sentido de pertenencia y las redes de apoyo, y cómo la discriminación, el estigma, la violencia y la exclusión impactan en la salud mental de las personas LGBT+. Ponemos en valor las prácticas que fortalecen la participación, el reconocimiento mutuo y comunidades más inclusivas y cuidadoras.',
     preguntas: [
