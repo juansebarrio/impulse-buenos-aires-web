@@ -34,7 +34,7 @@ export const docentes: Docente[] = [
   {
     id: 'cristian-alberti',
     nombre: 'Cristian Alberti',
-    rol: 'Docente invitado',
+    rol: 'Docente',
     foto: '/images/formacion/cristian-alberti.jpg',
     bio: '(UNR-CONICET). Activista pro-sexo. Integra Yarará Club. Licenciado en Comunicación Social por la Universidad Nacional de Rosario. Docente en la Facultad de Ciencia Política y Relaciones Internacionales (UNR). Sus líneas de investigación se centran en las genealogías de los activismos seropositivos y la problematización de la relación entre el discurso social construido en torno al VIH y las disidencias sexo-genéricas. En 2020 publicó el libro Discursividades víricas: hacia una genealogía sobre los posicionamientos teórico-políticos suscitados por el VIH/sida (colección Apuntes Feministas, UNR Editora).',
   },
@@ -109,7 +109,7 @@ export const encuentros: Encuentro[] = [
     docenteId: 'sebastian-loinaz',
     fecha: 'Martes 20 de octubre',
     descripcion:
-      'La salud desde una perspectiva colectiva, comunitaria y situada: los procesos de salud-enfermedad-atención-cuidado están atravesados por las condiciones sociales, económicas, culturales y territoriales en las que vive la gente. Repasamos los determinantes sociales de la salud con foco en las comunidades LGBT+ y actualizamos conceptos de prevención combinada del VIH: diagnóstico, tratamientos antirretrovirales, PrEP, indetectable = intransmisible (I=I) y otras herramientas de cuidado integral, entendiendo que la prevención no depende solo de conductas individuales. Con una actividad de cartografía colectiva, mapeamos los territorios donde se produce salud: la calle, las fiestas, las canchas, los barrios.',
+      'La salud desde una perspectiva colectiva, comunitaria y situada: los procesos de salud-enfermedad-atención-cuidado están atravesados por las condiciones sociales, económicas, culturales y territoriales en las que vive la gente. Repasamos los determinantes sociales de la salud con foco en las comunidades LGBT+ y actualizamos conceptos de prevención combinada del VIH: diagnóstico, tratamientos antirretrovirales, PrEP, indetectable = intransmisible (I=I) y otras herramientas de cuidado integral, entendiendo que la prevención no depende solo de conductas individuales.',
     preguntas: [
       '¿Dónde se produce la salud?',
       '¿Qué pueden enseñarnos los activismos comunitarios sobre el cuidado y la prevención que muchas veces no aparece en las instituciones de salud?',
